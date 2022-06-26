@@ -1,0 +1,37 @@
+<div class="container">
+  <h4 class="header">My login page</h4>
+
+  <div class="card s11" style="border-radius: 5px">
+    <form class="col s12" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input id="email" type="email" class="validate" formControlName="email" required>
+          <label for="email">Email</label>
+          <span class="helper-text"
+                data-error="E-mail is not valid" data-success="right">sample@com.uk</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">password</i>
+          <input id="password" type="password" class="validate" formControlName="password" required>
+          <label for="password">Password</label>
+          <span class="helper-text" data-error="Password is not valid" data-success="right">At least 1 symbol</span>
+        </div>
+      </div>
+      <div *ngIf="loginError" class="error">{{loginError}}</div>
+      <div class="submitBtn">
+        <button class="btn waves-effect waves-light  pink lighten-3" type="submit" name="action"
+        [disabled]="loginForm.invalid"
+        >Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--[disabled]="loginForm.invalid"-->
+

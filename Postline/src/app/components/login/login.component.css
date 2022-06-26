@@ -1,0 +1,45 @@
+
+.input-field label {
+  color: #deb8b8;
+}
+
+.container {
+  border: 1px solid black;
+  border-radius: 5px;
+  /*background: #faedcd;*/
+  background: #e9edc9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+  padding: 30px;
+  max-width: 500px;
+  width: 50%;
+  box-shadow: 10px 5px 5px darkgrey;
+}
+
+.input-field{
+ max-width: 90%;
+}
+
+/*.error{*/
+/*  color: #D8000C;*/
+/*  background-color: #FFBABA;*/
+/*  background-image: url('https://i.imgur.com/GnyDvKN.png');*/
+/*}*/
+
+/*.success {*/
+/*  color: #4F8A10;*/
+/*  background-color: #DFF2BF;*/
+/*  background-image: url('https://i.imgur.com/Q9BGTuy.png');*/
+/*}*/
+
+.submitBtn{
+  /*display: flex;*/
+  margin:10px;
+  text-align: center;
+}
+
+
+
+

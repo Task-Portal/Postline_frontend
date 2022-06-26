@@ -1,0 +1,52 @@
+<div class="container reg_container">
+  <form class="col s12" [formGroup]="registrationForm" (ngSubmit)="register(registrationForm)">
+    <div class="row">
+      <div class="input-field col s6">
+        <input  id="first_name" type="text" class="validate" formControlName="firstName" required minlength="2" maxlength="50">
+        <label for="first_name">First Name</label>
+        <span class="helper-text"
+              data-error="First name is not valid" data-success="right"></span>
+      </div>
+      <div class="input-field col s6">
+        <input id="last_name" type="text" class="validate" formControlName="lastName" required minlength="2" maxlength="50">
+        <label for="last_name">Last Name</label>
+        <span class="helper-text"
+              data-error="Last name is not valid" data-success="right"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="userName" type="text" class="validate" formControlName="userName" required minlength="2" maxlength="50">
+        <label for="userName">User Name</label>
+        <span class="helper-text"
+              data-error="User name is not valid" data-success="right"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input #email id="email" type="email" class="validate" formControlName="email" (blur)="onBlur(email)" required>
+        <label for="email">Email</label>
+        <span class="helper-text"
+              data-error="E-mail is not valid" data-success="right">sample@com.uk</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate" formControlName="password" required>
+        <label for="password">Password</label>
+        <span class="helper-text"
+              data-error="Password is not valid" data-success="right"></span>
+
+      </div>
+    </div>
+    <div *ngIf="registrationError" class="error">{{registrationError}}</div>
+    <div class="btnGroup">
+      <button class="waves-effect waves-light btn deep-orange lighten-2 subBtn" type="submit" name="action"
+              [disabled]="registrationForm.invalid"
+      >Submit</button></div>
+
+  </form>
+</div>
