@@ -1,4 +1,4 @@
-<nav class="light-green lighten-3">
+<nav class="indigo darken-4">
   <div class="nav-wrapper" *ngIf="{
         status: authService.authStatus$ | async,
         user: authService.currentUser$ | async
@@ -47,4 +47,5 @@
     </ul>
   </div>
 </nav>
+<app-alert></app-alert>
 <router-outlet></router-outlet>

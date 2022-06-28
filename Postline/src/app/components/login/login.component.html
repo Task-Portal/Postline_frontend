@@ -1,7 +1,7 @@
 <div class="container">
-  <h4 class="header">My login page</h4>
+  <h4 class="header">Login, please </h4>
 
-  <div class="card s11" style="border-radius: 5px">
+  <div class="card s11">
     <form class="col s12" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
 
       <div class="row">
@@ -23,7 +23,7 @@
       </div>
       <div *ngIf="loginError" class="error">{{loginError}}</div>
       <div class="submitBtn">
-        <button class="btn waves-effect waves-light  pink lighten-3" type="submit" name="action"
+        <button class="btn waves-effect waves-light  deep-orange lighten-2" type="submit" name="action"
         [disabled]="loginForm.invalid"
         >Submit
           <i class="material-icons right">send</i>

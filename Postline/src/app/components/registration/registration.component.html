@@ -1,13 +1,19 @@
-<div class="container reg_container">
+<div class="container">
+  <h4 class="header">Registration form </h4>
+  <div class="card s11">
   <form class="col s12" [formGroup]="registrationForm" (ngSubmit)="register(registrationForm)">
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12">
         <input  id="first_name" type="text" class="validate" formControlName="firstName" required minlength="2" maxlength="50">
         <label for="first_name">First Name</label>
         <span class="helper-text"
               data-error="First name is not valid" data-success="right"></span>
       </div>
-      <div class="input-field col s6">
+
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
         <input id="last_name" type="text" class="validate" formControlName="lastName" required minlength="2" maxlength="50">
         <label for="last_name">Last Name</label>
         <span class="helper-text"
@@ -17,7 +23,9 @@
 
     <div class="row">
       <div class="input-field col s12">
-        <input id="userName" type="text" class="validate" formControlName="userName" required minlength="2" maxlength="50">
+        <input id="userName" #userName type="text" class="validate" formControlName="userName"
+               (blur)="onBlur(userName)"
+               required minlength="2" maxlength="50">
         <label for="userName">User Name</label>
         <span class="helper-text"
               data-error="User name is not valid" data-success="right"></span>
@@ -42,11 +50,12 @@
 
       </div>
     </div>
-    <div *ngIf="registrationError" class="error">{{registrationError}}</div>
+<!--    <div *ngIf="registrationError" class="error">{{registrationError}}</div>-->
     <div class="btnGroup">
       <button class="waves-effect waves-light btn deep-orange lighten-2 subBtn" type="submit" name="action"
               [disabled]="registrationForm.invalid"
       >Submit</button></div>
 
   </form>
+    </div>
 </div>

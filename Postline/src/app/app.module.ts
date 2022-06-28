@@ -16,6 +16,9 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthHttpInterceptor } from './services/auth/auth-http-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertModule } from './modules/alert/alert.module';
+import { GetPostsService } from './services/get-posts.service';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,14 @@ import { RegistrationComponent } from './components/registration/registration.co
     PageNotFoundComponent,
     LoginComponent,
     RegistrationComponent,
+    // AlertComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AlertModule,
   ],
   providers: [
     {
@@ -37,6 +42,7 @@ import { RegistrationComponent } from './components/registration/registration.co
       useClass: CustomAuthService,
       deps: [HttpClient],
     },
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,

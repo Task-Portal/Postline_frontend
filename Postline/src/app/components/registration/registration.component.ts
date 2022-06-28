@@ -25,6 +25,7 @@ import { Role } from '../../enums/auth.enum';
 import { User } from '../../entities/user';
 import { debug, RxJsLoggingLevel } from '../../common/rxjsDebuger';
 import { UserForRegistration } from '../../entities/userForRegistration';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-registration',
@@ -36,11 +37,18 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   emailIsTaken: boolean = true;
   userNameIsTaken: boolean = true;
-  // control: FormControl;
   registrationError = '';
   redirectUrl: string;
 
+  //#region for alert
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: true,
+  };
+  //endregion
+
   constructor(
+    public alertService: AlertService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router // private route: ActivatedRoute
@@ -57,11 +65,11 @@ export class RegistrationComponent implements OnInit {
 
   buildLoginForm() {
     this.registrationForm = this.formBuilder.group({
-      firstName: ['Galina', RequiredTextValidation],
-      lastName: ['Galina', RequiredTextValidation],
+      firstName: ['', RequiredTextValidation],
+      lastName: ['', RequiredTextValidation],
       userName: ['', RequiredTextValidation],
       email: ['', EmailValidation],
-      password: ['1', PasswordValidation],
+      password: ['', PasswordValidation],
     });
   }
 
@@ -75,43 +83,31 @@ export class RegistrationComponent implements OnInit {
           .checkEmail(value.value)
           .pipe(
             tap((val) => {
-              // if (val) {
-              //   this.emailIsTaken = true;
-              //   this.registrationError =
-              //     'The email is taken.Please choose a new one.';
-              //   this.registrationForm.setErrors({ incorrect: true });
-              // } else {
-              //   this.registrationError = '';
-              //   this.emailIsTaken = false;
-              // }
-              this.fillParams(val,"email")
+              this.fillParams(val, 'email');
             })
           )
           .subscribe();
       } else {
+        this.authService
+          .checkName(value.value)
+          .pipe(
+            tap((val) => {
+              this.fillParams(val, 'userName');
+            })
+          )
+          .subscribe();
       }
     }
   }
 
   async register(submittedForm: FormGroup) {
-    // this.authService
-    //   .checkEmail(submittedForm.value.email)
-    //   .pipe(
-    //     tap((value) => {
-    //       if (!value) {
-    //
-    //       } else {
-    //         this.registrationError = 'The email is taken';
-    //       }
-    //     })
-    //   )
-    //   .subscribe({
-    //     error: (error) => {
-    //       this.registrationError = error;
-    //     },
-    //   });
-    if (!this.emailIsTaken) {
+    if (!this.emailIsTaken && !this.userNameIsTaken) {
       this.regUser(submittedForm);
+    } else {
+      this.alertService.warn(
+        `Please check your userName or email`,
+        this.options
+      );
     }
   }
 
@@ -131,6 +127,10 @@ export class RegistrationComponent implements OnInit {
     const result = this.authService.registration(user).subscribe({
       next: () => {
         this.registrationError = 'Registration successful';
+        this.alertService.info(
+          `Registration successful ${firstName}.Please login in.`,
+          this.options
+        );
         this.router.navigate(['/login']);
       },
       error: (error) => {
@@ -139,15 +139,24 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  private fillParams(val:boolean, param:string){
+  private fillParams(val: boolean, param: string) {
     if (val) {
-       param==="email"?   this.emailIsTaken = true: this.userNameIsTaken=true;
-      this.registrationError =
-        `The ${param} is taken.Please choose a new one.`;
+      param === 'email'
+        ? (this.emailIsTaken = true)
+        : (this.userNameIsTaken = true);
+      this.registrationError = ` The ${param} is taken.Please choose a new one.\n `;
+
+      this.alertService.warn(
+        ` The ${param} is taken.Please choose a new one.`,
+        this.options
+      );
+
       this.registrationForm.setErrors({ incorrect: true });
     } else {
       this.registrationError = '';
-      param==="email"?   this.emailIsTaken = false: this.userNameIsTaken=false;
+      param === 'email'
+        ? (this.emailIsTaken = false)
+        : (this.userNameIsTaken = false);
     }
   }
 }

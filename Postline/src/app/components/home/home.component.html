@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="container">
+
+  <h2>All Posts</h2>
+  <ul >
+    <li *ngFor="let post of posts">
+      <div class="card_holder">
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="author" >Author:  {{post.userName}}
+              <div class="rating" >Rating:  {{post.rating}}</div>
+            </div>
+
+            <div class="card-content">
+              <span class="card-title">{{post.title}}</span>
+              <p>{{post.body}}</p>
+            </div>
+            <div class="card-action">
+              <a href="#">See details</a>
+              <div class="created" >Created:  {{post.postDate | date:'fullDate'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+
+
+</div>

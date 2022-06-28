@@ -9,8 +9,36 @@
 
 .reg_container{
   margin-top: 30px;
+  /*text-align: center;*/
 }
 .subBtn{
   padding: 0 15%;
+  margin-bottom: 10px;
 
+}
+
+.row{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.container {
+  /*border: 1px solid black;*/
+  border-radius: 5px;
+  /*background: #faedcd;*/
+  background: #e59275;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 10px 5px 5px darkgrey;
+}
+
+.card{
+  background-color: #f3f3dd;
+  border-radius: 5px;
 }

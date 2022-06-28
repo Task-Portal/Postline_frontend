@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { GetPostsService } from '../../services/get-posts.service';
+import { IPost } from '../../interfaces/ipost';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  constructor(private getPostService: GetPostsService) {}
 
-  constructor() { }
+  posts: IPost[];
 
   ngOnInit(): void {
+    this.getPostService
+      .getPosts()
+      .pipe(first())
+      .subscribe((posts) => (this.posts = posts));
   }
-
 }

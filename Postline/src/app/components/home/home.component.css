@@ -1,0 +1,28 @@
+ .col.m6{
+width:100%
+}
+
+.author{
+  padding:20px;
+  color:dodgerblue;
+}
+
+.rating{
+  float: right;
+  padding: 5px;
+}
+
+.card_holder{
+
+}
+
+.card-content{
+  color: black;
+}
+
+.created{
+  float: right;
+  padding: 5px;
+  color: dodgerblue;
+}
+
