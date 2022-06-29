@@ -15,7 +15,7 @@
               <p>{{post.body}}</p>
             </div>
             <div class="card-action">
-              <a href="#">See details</a>
+              <a  (click)="getPostDetails(post.id)">See details</a>
               <div class="created" >  {{post.postDate |date:"dd/MM/yy"}}</div>
             </div>
           </div>

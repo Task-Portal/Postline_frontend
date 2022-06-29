@@ -20,6 +20,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { AlertModule } from './modules/alert/alert.module';
 import { PostsRepositoryService } from './services/repositories/posts-repository.service';
 import { InternalServerComponent } from './components/error/internal-server/internal-server.component';
+import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { InternalServerComponent } from './components/error/internal-server/inte
     LoginComponent,
     RegistrationComponent,
     InternalServerComponent,
+    PostDetailsComponent,
     // AlertComponent,
   ],
   imports: [

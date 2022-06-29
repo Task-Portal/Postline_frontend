@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 import { AlertService } from '../../services/alert.service';
 import { posts } from '../../routes/posts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private repository: PostsRepositoryService,
     private errorHandler: ErrorHandlerService,
-    private alert: AlertService
+    private alert: AlertService,
+    private router: Router
   ) {}
 
   posts: IPost[];
@@ -31,6 +33,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getAllPosts();
   }
+
+  public getPostDetails = (id: string) => {
+    // const detailsUrl: string = `/owner/details/${id}`;
+    this.router.navigate([posts.getOnePost(id)]);
+  };
 
   private getAllPosts = () => {
     this.repository.getPosts(posts.getAllPost).subscribe({

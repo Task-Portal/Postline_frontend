@@ -6,11 +6,13 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth/auth-guard.service';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { InternalServerComponent } from './components/error/internal-server/internal-server.component';
+import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: '500', component: InternalServerComponent },
+  { path: 'post/:id', component: PostDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/:redirectUrl', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },

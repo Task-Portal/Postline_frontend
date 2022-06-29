@@ -20,6 +20,12 @@ export class PostsRepositoryService {
     );
   };
 
+  public getPost = (route: string) => {
+    return this.http.get<IPost>(
+      this.createCompleteRoute(route, this.envUrl.urlAddress)
+    );
+  };
+
   public getUserPosts(id: string): Observable<IPost[]> {
     return this.http.get<IPost[]>(`${environment.baseUrl}/post/user/${id}`);
   }
