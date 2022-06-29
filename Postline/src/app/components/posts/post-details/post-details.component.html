@@ -1,0 +1,27 @@
+<div class="container">
+<div *ngIf="post">
+<h2 class="details_title" >{{post.title}}</h2>
+
+  <span class="category">Category: {{post.categoryName}}</span>
+
+<div class="card_holder">
+  <div class="col s12 m6">
+    <div class="card">
+      <div class="author" >Author:  {{post.userName}}
+        <div class="rating" >Rating:  {{post.rating}}</div>
+      </div>
+
+
+
+      <div class="card-content">
+        <p>{{post.body}}</p>
+      </div>
+      <div class="card-action">
+        <a  [routerLink]="['/home']" >Back </a>
+        <div class="created" >  {{post.postDate |date:"dd/MM/yy"}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

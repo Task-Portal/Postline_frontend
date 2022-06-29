@@ -47,6 +47,7 @@ body{
 }
 
 .general_title{
-  color: darkred;
+  color: black;
+  text-shadow: #d3c89a 1px 0 5px;
 }
 
