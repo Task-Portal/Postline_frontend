@@ -20,11 +20,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router // private route: ActivatedRoute
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    // this.subs.sink = route.paramMap.subscribe(
-    //   (params) => (this.redirectUrl = params.get('redirectUrl') ?? '')
-    // );
+    this.subs.sink = route.paramMap.subscribe(
+      (params) => (this.redirectUrl = params.get('redirectUrl') ?? '')
+    );
   }
   ngOnInit() {
     this.authService.logout();

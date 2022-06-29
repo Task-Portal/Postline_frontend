@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetPostsService } from '../../services/get-posts.service';
+import { PostsRepositoryService } from '../../services/repositories/posts-repository.service';
 import { IPost } from '../../interfaces/ipost';
 import { first } from 'rxjs';
 
@@ -9,13 +9,13 @@ import { first } from 'rxjs';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private getPostService: GetPostsService) {}
+  constructor(private getPostService: PostsRepositoryService) {}
 
   posts: IPost[];
 
   ngOnInit(): void {
     this.getPostService
-      .getPosts()
+      .getAllPosts()
       .pipe(first())
       .subscribe((posts) => (this.posts = posts));
   }

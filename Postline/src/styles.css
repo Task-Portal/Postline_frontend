@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Lora:ital@1&family=Open+Sans&family=Titan+One&display=swap');
 
 body{
   background: #f3f3dd;
+  font-family: 'Lora', serif;
 }
 
 .btn{

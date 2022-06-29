@@ -10,19 +10,26 @@ width:100%
 .rating{
   float: right;
   padding: 5px;
+  color:brown;
 }
 
-.card_holder{
-
+.card{
+border-radius: 10px;
+  border: #f3f3dd solid 2px;
 }
 
 .card-content{
   color: black;
+  text-align: center;
 }
 
 .created{
   float: right;
   padding: 5px;
   color: dodgerblue;
+  font-family: 'Lobster', cursive;
 }
 
+.general_title{
+  color: darkred;
+}

@@ -18,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertModule } from './modules/alert/alert.module';
-import { GetPostsService } from './services/get-posts.service';
+import { PostsRepositoryService } from './services/repositories/posts-repository.service';
+import { InternalServerComponent } from './components/error/internal-server/internal-server.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { GetPostsService } from './services/get-posts.service';
     PageNotFoundComponent,
     LoginComponent,
     RegistrationComponent,
+    InternalServerComponent,
     // AlertComponent,
   ],
   imports: [
