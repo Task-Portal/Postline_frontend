@@ -1,8 +1,9 @@
 <div class="container">
+  <div *ngIf="showError" class="error_text">{{errorMessage}}</div>
   <h4 class="header">Login, please </h4>
 
   <div class="card s11">
-    <form class="col s12" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+    <form class="col s12" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
 
       <div class="row">
         <div class="input-field col s12">
@@ -21,7 +22,7 @@
           <span class="helper-text" data-error="Password is not valid" data-success="right">At least 1 symbol</span>
         </div>
       </div>
-      <div *ngIf="loginError" class="error">{{loginError}}</div>
+
       <div class="submitBtn">
         <button class="btn waves-effect waves-light  deep-orange lighten-2" type="submit" name="action"
         [disabled]="loginForm.invalid"

@@ -1,7 +1,11 @@
 <div class="container">
+  <span *ngIf="showError" class="error_text" role="alert">
+    <span [innerHTML]="errorMessage"></span>
+  </span>
+
   <h4 class="header">Registration form </h4>
   <div class="card s11">
-  <form class="col s12" [formGroup]="registrationForm" (ngSubmit)="register(registrationForm)">
+  <form class="col s12" [formGroup]="registrationForm" (ngSubmit)="registerUser(registrationForm.value)">
     <div class="row">
       <div class="input-field col s12">
         <input  id="first_name" type="text" class="validate" formControlName="firstName" required minlength="2" maxlength="50">
@@ -21,19 +25,19 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="userName" #userName type="text" class="validate" formControlName="userName"
-               (blur)="onBlur(userName)"
-               required minlength="2" maxlength="50">
-        <label for="userName">User Name</label>
-        <span class="helper-text"
-              data-error="User name is not valid" data-success="right"></span>
-      </div>
-    </div>
+<!--    <div class="row">-->
+<!--      <div class="input-field col s12">-->
+<!--        <input id="userName" #userName type="text" class="validate" formControlName="userName"-->
+<!--               (blur)="onBlur(userName)"-->
+<!--               required minlength="2" maxlength="50">-->
+<!--        <label for="userName">User Name</label>-->
+<!--        <span class="helper-text"-->
+<!--              data-error="User name is not valid" data-success="right"></span>-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <div class="row">
-      <div class="input-field col s12">
+    <div class="row" >
+      <div class="input-field col s12" >
         <input #email id="email" type="email" class="validate" formControlName="email" (blur)="onBlur(email)" required>
         <label for="email">Email</label>
         <span class="helper-text"
@@ -45,8 +49,25 @@
       <div class="input-field col s12">
         <input id="password" type="password" class="validate" formControlName="password" required>
         <label for="password">Password</label>
-        <span class="helper-text"
+        <span class="helper-text "
               data-error="Password is not valid" data-success="right"></span>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="confirm" type="password" class="validate" formControlName="confirm" required>
+        <label for="confirm">Confirm Password</label>
+<!--        <span class="helper-text"-->
+<!--              data-error="Confirmation is not valid" data-success="right"></span>-->
+        <span class="helper-text error_text" *ngIf="validateControl('confirm') && hasError('confirm', 'required')"
+
+        >
+         Confirmation is required </span>
+        <span class="helper-text error_text" *ngIf="hasError('confirm', 'mustMatch')"
+
+        >Passwords must match</span>
 
       </div>
     </div>

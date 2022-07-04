@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from '../../components/user/profile/profile.component';
-import { LogoutComponent } from '../../components/user/logout/logout.component';
-import { AuthGuard } from '../../services/auth/auth-guard.service';
+import { AuthGuard } from '../../services/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'logout', component: LogoutComponent },
 ];
 
 @NgModule({

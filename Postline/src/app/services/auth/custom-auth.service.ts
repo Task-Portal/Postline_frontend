@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, distinctUntilChanged, map, Observable } from 'rxjs';
-import { IServerAuthResponse } from '../../interfaces/serverAuthResponse';
+import { IServerAuthResponse } from '../../interfaces/response/serverAuthResponse';
 import { Role } from '../../enums/auth.enum';
 import { IAuthStatus } from '../../interfaces/authStatus';
 import { $enum } from 'ts-enum-util';
@@ -10,8 +10,8 @@ import { IJwtToken } from '../../interfaces/jwtToken';
 import { User } from '../../entities/user';
 import { environment } from '../../../environments/environment';
 import { transformError } from '../../common/transformError';
-import { IUser } from '../../interfaces/user';
-import { IUserForRegistration } from '../../interfaces/userForRegistration';
+import { IUser } from '../../interfaces/user/user';
+import { UserForRegistrationDto } from '../../interfaces/user/userForRegistration';
 
 @Injectable()
 export class CustomAuthService extends AuthService {
@@ -34,7 +34,7 @@ export class CustomAuthService extends AuthService {
   }
 
   protected registerUser(
-    user: IUserForRegistration
+    user: UserForRegistrationDto
   ): Observable<IServerAuthResponse> {
     return this.httpClient.post<IServerAuthResponse>(
       `${environment.baseUrl}/auth`,

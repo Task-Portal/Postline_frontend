@@ -13,14 +13,17 @@ import {
 import { AuthService } from './services/auth/auth.service';
 import { CustomAuthService } from './services/auth/custom-auth.service';
 import { LoginComponent } from './components/login/login.component';
-import { AuthHttpInterceptor } from './services/auth/auth-http-interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegistrationComponent } from './components/registration/registration.component';
+import { RegisterUserComponent } from './components/registration/register-user.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertModule } from './modules/alert/alert.module';
 import { PostsRepositoryService } from './services/repositories/posts-repository.service';
 import { InternalServerComponent } from './components/error/internal-server/internal-server.component';
 import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
+import { ErrorHandlerService } from './services/error-handler.service';
+import { MenuComponent } from './components/menu/menu.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,11 @@ import { PostDetailsComponent } from './components/posts/post-details/post-detai
     HomeComponent,
     PageNotFoundComponent,
     LoginComponent,
-    RegistrationComponent,
+    RegisterUserComponent,
     InternalServerComponent,
     PostDetailsComponent,
+    MenuComponent,
+    PrivacyComponent,
     // AlertComponent,
   ],
   imports: [
@@ -39,17 +44,18 @@ import { PostDetailsComponent } from './components/posts/post-details/post-detai
     HttpClientModule,
     ReactiveFormsModule,
     AlertModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        allowedDomains: ['localhost:44309'],
+        disallowedRoutes: [],
+      },
+    }),
   ],
   providers: [
     {
-      provide: AuthService,
-      useClass: CustomAuthService,
-      deps: [HttpClient],
-    },
-
-    {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthHttpInterceptor,
+      useClass: ErrorHandlerService,
       multi: true,
     },
   ],

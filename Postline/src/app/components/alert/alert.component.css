@@ -4,16 +4,23 @@
   margin-right: 4px;
 
 
+
 }
 .card {
   margin:  10px auto;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px 5px;
 }
 
 .close{
   cursor: pointer;
   color:unset;
+}
+
+.custom_alert{
+  text-align: center;
+  margin:10px;
+  z-index: 10;
 }
 
 

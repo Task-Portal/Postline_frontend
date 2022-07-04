@@ -4,7 +4,7 @@ import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { PostsRepositoryService } from '../../../services/repositories/posts-repository.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IPost } from '../../../interfaces/ipost';
-import { posts } from '../../../routes/posts';
+import { postsRoutes } from '../../../routes/postsRoutes';
 import { AlertService } from '../../../services/alert.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class PostDetailsComponent implements OnInit {
   getPostDetails = () => {
     const id: string = this.activeRoute.snapshot.params['id'];
     // const apiUrl: string = `api/owner/${id}/account`;
-    this.repository.getPost(posts.getOnePost(id)).subscribe({
+    this.repository.getPost(postsRoutes.getOnePost(id)).subscribe({
       next: (post: IPost) => (this.post = post),
       error: (err: HttpErrorResponse) => {
         this.errorHandler.handleError(err);

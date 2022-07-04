@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
-import { IUser } from '../../../interfaces/user';
+import { IUser } from '../../../interfaces/user/user';
 import { IPost } from '../../../interfaces/ipost';
 import { PostsRepositoryService } from '../../../services/repositories/posts-repository.service';
 import { first } from 'rxjs';

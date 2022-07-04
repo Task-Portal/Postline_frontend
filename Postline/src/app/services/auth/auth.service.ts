@@ -14,16 +14,16 @@ import {
   throwError,
 } from 'rxjs';
 import { IAuthStatus } from '../../interfaces/authStatus';
-import { IUser } from '../../interfaces/user';
+import { IUser } from '../../interfaces/user/user';
 import { defaultAuthStatus } from '../../entities/defaultAuthStatus';
 import { User } from '../../entities/user';
-import { IServerAuthResponse } from '../../interfaces/serverAuthResponse';
+import { IServerAuthResponse } from '../../interfaces/response/serverAuthResponse';
 import { CacheService } from './cache.service';
 import decode from 'jwt-decode';
 import { transformError } from '../../common/transformError';
 import { Role } from '../../enums/auth.enum';
 import { debug, RxJsLoggingLevel } from '../../common/rxjsDebuger';
-import { IUserForRegistration } from '../../interfaces/userForRegistration';
+import { UserForRegistrationDto } from '../../interfaces/user/userForRegistration';
 
 @Injectable()
 export abstract class AuthService extends CacheService implements IAuthService {
@@ -57,7 +57,7 @@ export abstract class AuthService extends CacheService implements IAuthService {
     password: string
   ): Observable<IServerAuthResponse>;
   protected abstract registerUser(
-    u: IUserForRegistration
+    u: UserForRegistrationDto
   ): Observable<IServerAuthResponse>;
 
   protected abstract checkEmailCustom(email: string): Observable<boolean>;
@@ -127,7 +127,7 @@ export abstract class AuthService extends CacheService implements IAuthService {
 
   //#endregion
 
-  registration(user: IUserForRegistration): Observable<IServerAuthResponse> {
+  registration(user: UserForRegistrationDto): Observable<IServerAuthResponse> {
     return this.registerUser(user);
   }
 

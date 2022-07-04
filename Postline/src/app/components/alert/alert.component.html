@@ -1,4 +1,6 @@
-<div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+<div class="custom_alert">
+<span *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
   <span [innerHTML]="alert.message"></span>
   <a class="close" (click)="removeAlert(alert)"><i class="material-icons">close</i></a>
+</span>
 </div>

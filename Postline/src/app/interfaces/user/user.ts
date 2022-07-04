@@ -1,4 +1,4 @@
-import { Role } from '../enums/auth.enum';
+import { Role } from '../../enums/auth.enum';
 export interface IUser {
   id: string;
   email: string;

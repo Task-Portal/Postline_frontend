@@ -5,7 +5,7 @@ import { first } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 import { AlertService } from '../../services/alert.service';
-import { posts } from '../../routes/posts';
+import { postsRoutes } from '../../routes/postsRoutes';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,11 +36,11 @@ export class HomeComponent implements OnInit {
 
   public getPostDetails = (id: string) => {
     // const detailsUrl: string = `/owner/details/${id}`;
-    this.router.navigate([posts.getOnePost(id)]);
+    this.router.navigate([postsRoutes.getOnePost(id)]);
   };
 
   private getAllPosts = () => {
-    this.repository.getPosts(posts.getAllPost).subscribe({
+    this.repository.getPosts(postsRoutes.getAllPost).subscribe({
       next: (posts: IPost[]) => {
         this.posts = posts;
       },

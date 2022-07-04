@@ -1,4 +1,4 @@
-import { Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 export const EmailValidation = [Validators.required, Validators.email];
 export const PasswordValidation = [
@@ -14,3 +14,14 @@ export const OptionalTextValidation = [
 export const RequiredTextValidation = OptionalTextValidation.concat([
   Validators.required,
 ]);
+
+// export const validateControl = (controlName: string, form: FormGroup) => {
+//   return form.get(controlName)?.invalid && form.get(controlName)?.touched;
+// };
+// export const hasError = (
+//   controlName: string,
+//   errorName: string,
+//   form: FormGroup
+// ) => {
+//   return form.get(controlName)?.hasError(errorName);
+// };

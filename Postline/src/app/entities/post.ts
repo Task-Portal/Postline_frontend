@@ -1,4 +1,4 @@
-import { IUser } from '../interfaces/user';
+import { IUser } from '../interfaces/user/user';
 import { Role } from '../enums/auth.enum';
 import { IPost } from '../interfaces/ipost';
 
