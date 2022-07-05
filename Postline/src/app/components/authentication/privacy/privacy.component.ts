@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/auth/authentication.service';
-import { userRoutes } from '../../routes/userRoutes';
-import { Claim } from '../../interfaces/user/claim';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { userRoutes } from '../../../routes/userRoutes';
+import { Claim } from '../../../interfaces/user/claim';
 
 @Component({
   selector: 'app-privacy',

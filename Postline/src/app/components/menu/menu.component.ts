@@ -12,7 +12,11 @@ export class MenuComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private router: Router
-  ) {}
+  ) {
+    this.authService.authChanged.subscribe((res) => {
+      this.isUserAuthenticated = res;
+    });
+  }
 
   ngOnInit(): void {
     this.authService.authChanged.subscribe((res) => {

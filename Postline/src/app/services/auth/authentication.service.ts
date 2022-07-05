@@ -5,14 +5,15 @@ import { UserForRegistrationDto } from '../../interfaces/user/userForRegistratio
 import { RegistrationResponseDto } from '../../interfaces/response/registrationResponseDto';
 import { UserForAuthenticationDto } from '../../interfaces/user/userForAuthenticationDto';
 import { AuthResponseDto } from '../../interfaces/response/authResponseDto';
-import { CacheService } from './cache.service';
 import { Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ForgotPassword } from '../../interfaces/user/forgotPassword';
+import { ResetPasswordDto } from '../../interfaces/user/ResetPasswordDto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationService extends CacheService {
+export class AuthenticationService {
   private authChangeSub = new Subject<boolean>();
   public authChanged = this.authChangeSub.asObservable();
 
@@ -20,9 +21,7 @@ export class AuthenticationService extends CacheService {
     private http: HttpClient,
     private envUrl: EnvironmentUrlService,
     private jwtHelper: JwtHelperService
-  ) {
-    super();
-  }
+  ) {}
 
   public isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem('token');
@@ -36,7 +35,17 @@ export class AuthenticationService extends CacheService {
     // return !!(token && !this.jwtHelper.isTokenExpired(token));
   };
 
-  //#region Register User, CheckEmail, Login User, Logout
+  public isUserInRole = (expectedRole: string): boolean => {
+    const token = localStorage.getItem('token');
+    const decodedToken = this.jwtHelper.decodeToken(token!);
+    const role =
+      decodedToken[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      ];
+    return role === expectedRole;
+  };
+
+  //#region Register User, CheckEmail, Login User, Logout, Forgot Password, Reset Password
   public registerUser = (route: string, body: UserForRegistrationDto) => {
     return this.http.post<RegistrationResponseDto>(
       this.createCompleteRoute(route, this.envUrl.urlAddress),
@@ -59,8 +68,22 @@ export class AuthenticationService extends CacheService {
   };
 
   public logout = () => {
-    this.removeItem('token');
+    localStorage.removeItem('token');
     this.sendAuthStateChangeNotification(false);
+  };
+
+  public forgotPassword = (route: string, body: ForgotPassword) => {
+    return this.http.post(
+      this.createCompleteRoute(route, this.envUrl.urlAddress),
+      body
+    );
+  };
+
+  public resetPassword = (route: string, body: ResetPasswordDto) => {
+    return this.http.post(
+      this.createCompleteRoute(route, this.envUrl.urlAddress),
+      body
+    );
   };
 
   //endregion

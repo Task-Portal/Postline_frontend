@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth/auth.service';
+import { AuthenticationService } from './services/auth/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,10 @@ import { AuthService } from './services/auth/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthenticationService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.authService.isUserAuthenticated())
+      this.authService.sendAuthStateChangeNotification(true);
+  }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="my_container">
   <div *ngIf="showError" class="error_text">{{errorMessage}}</div>
   <h4 class="header">Login, please </h4>
 
@@ -22,6 +22,11 @@
           <span class="helper-text" data-error="Password is not valid" data-success="right">At least 1 symbol</span>
         </div>
       </div>
+
+
+        <a [routerLink]="['/authentication/forgotpassword']"> Forgot Password </a>
+
+      <br>
 
       <div class="submitBtn">
         <button class="btn waves-effect waves-light  deep-orange lighten-2" type="submit" name="action"

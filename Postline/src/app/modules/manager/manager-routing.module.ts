@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ManagerHomeComponent } from '../../components/manager/manager-home/manager-home.component';
 import { ManagerComponent } from '../../components/manager/manager/manager.component';
 import { UserManagementComponent } from '../../components/manager/user-management/user-management.component';
-import { AuthGuard } from '../../services/auth/auth-guard.service';
 import { Role } from '../../enums/auth.enum';
+import { AuthGuard } from '../../services/guards/auth.guard';
 
 const routes: Routes = [
   {

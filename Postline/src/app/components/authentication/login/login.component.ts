@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { SubSink } from 'subsink';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, combineLatest, filter, tap } from 'rxjs';
-import { EmailValidation, PasswordValidation } from '../../common/validations';
-import { Role } from '../../enums/auth.enum';
-import { AuthenticationService } from '../../services/auth/authentication.service';
-import { UserForAuthenticationDto } from '../../interfaces/user/userForAuthenticationDto';
+import {
+  EmailValidation,
+  PasswordValidation,
+} from '../../../common/validations';
+import { Role } from '../../../enums/auth.enum';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { UserForAuthenticationDto } from '../../../interfaces/user/userForAuthenticationDto';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthResponseDto } from '../../interfaces/response/authResponseDto';
-import { userRoutes } from '../../routes/userRoutes';
-import { CacheService } from '../../services/auth/cache.service';
+import { AuthResponseDto } from '../../../interfaces/response/authResponseDto';
+import { userRoutes } from '../../../routes/userRoutes';
 
 @Component({
   selector: 'app-login',
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(userRoutes.login, userForAuth).subscribe({
       next: (res: AuthResponseDto) => {
         console.log(`Login User. Token got ${res.token}`);
-        this.authService.setItem('token', res.token);
+        localStorage.setItem('token', res.token);
         this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
         this.router.navigate([this.returnUrl]);
       },

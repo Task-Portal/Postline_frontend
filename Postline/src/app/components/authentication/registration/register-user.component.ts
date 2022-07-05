@@ -170,13 +170,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { SubSink } from 'subsink';
-import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import {
   EmailValidation,
   PasswordValidation,
   RequiredTextValidation,
-} from '../../common/validations';
+} from '../../../common/validations';
 import {
   catchError,
   combineLatest,
@@ -185,15 +184,15 @@ import {
   first,
   distinctUntilChanged,
 } from 'rxjs';
-import { Role } from '../../enums/auth.enum';
-import { User } from '../../entities/user';
-import { debug, RxJsLoggingLevel } from '../../common/rxjsDebuger';
-import { AlertService } from '../../services/alert.service';
-import { UserForRegistrationDto } from '../../interfaces/user/userForRegistration';
+import { Role } from '../../../enums/auth.enum';
+import { User } from '../../../entities/user';
+import { debug, RxJsLoggingLevel } from '../../../common/rxjsDebuger';
+import { AlertService } from '../../../services/alert.service';
+import { UserForRegistrationDto } from '../../../interfaces/user/userForRegistration';
 import { HttpErrorResponse } from '@angular/common/http';
-import { userRoutes } from '../../routes/userRoutes';
-import { AuthenticationService } from '../../services/auth/authentication.service';
-import { PasswordConfirmationValidatorService } from '../../services/custom-validators/password-confirmation-validator.service';
+import { userRoutes } from '../../../routes/userRoutes';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
+import { PasswordConfirmationValidatorService } from '../../../services/custom-validators/password-confirmation-validator.service';
 
 @Component({
   selector: 'app-registration',

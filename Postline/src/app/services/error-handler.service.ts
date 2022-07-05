@@ -24,6 +24,8 @@ export class ErrorHandlerService implements HttpInterceptor {
       this.errorMessage = this.handleBadRequest(error);
     } else if (error.status === 401) {
       this.handleUnauthorized(error);
+    } else if (error.status === 403) {
+      this.handleForbidden(error);
     } else {
       this.handleOtherError(error);
     }
@@ -59,7 +61,10 @@ export class ErrorHandlerService implements HttpInterceptor {
   };
 
   private handleBadRequest = (error: HttpErrorResponse): string => {
-    if (this.router.url === '/authentication/register') {
+    if (
+      this.router.url === '/authentication/register' ||
+      this.router.url.startsWith('/authentication/resetpassword')
+    ) {
       let message = '';
       const values = Object.values(error.error.errors);
       values.map((m) => {
@@ -69,6 +74,13 @@ export class ErrorHandlerService implements HttpInterceptor {
     } else {
       return error.error ? error.error : error.message;
     }
+  };
+
+  private handleForbidden = (error: HttpErrorResponse) => {
+    this.router.navigate(['/forbidden'], {
+      queryParams: { returnUrl: this.router.url },
+    });
+    return 'Forbidden';
   };
 
   intercept(

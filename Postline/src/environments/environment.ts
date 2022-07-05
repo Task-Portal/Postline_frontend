@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   baseUrl: 'https://localhost:44309/api',
   mockServer: 'https://442ec4b6-c7d0-42e5-973c-768f6db640e3.mock.pstmn.io',
+  clientUrl: 'http://localhost:5000',
 };
 
 /*

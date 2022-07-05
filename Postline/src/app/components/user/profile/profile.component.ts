@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth/auth.service';
 import { IUser } from '../../../interfaces/user/user';
 import { IPost } from '../../../interfaces/ipost';
 import { PostsRepositoryService } from '../../../services/repositories/posts-repository.service';
@@ -21,14 +20,12 @@ export class ProfileComponent implements OnInit {
   };
   //endregion
   constructor(
-    private authService: AuthService,
     private getPostService: PostsRepositoryService,
     private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
     this.alertService.info('here in ngOnit', this.options);
-    this.user = this.authService.currentUser$.value;
     this.alertService.info(`User: ${this.user.id}`, this.options);
     this.getPostService
       .getUserPosts(this.user.id)
