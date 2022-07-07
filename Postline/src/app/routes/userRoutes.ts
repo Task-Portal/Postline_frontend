@@ -5,4 +5,5 @@ export const userRoutes = {
   getClaims: 'auth/privacy',
   forgotPassword: 'auth/forgotpassword',
   resetPassword: 'auth/resetPassword',
+  emailConfirmation: 'auth/emailconfirmation',
 };

@@ -25,6 +25,7 @@ import { PrivacyComponent } from './components/authentication/privacy/privacy.co
 import { ForbiddenComponent } from './components/authentication/forbidden/forbidden.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/authentication/reset-password/reset-password.component';
+import { EmailConfirmationComponent } from './components/authentication/email-confirmation/email-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ResetPasswordComponent } from './components/authentication/reset-passwo
     ForbiddenComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    EmailConfirmationComponent,
     // AlertComponent,
   ],
   imports: [

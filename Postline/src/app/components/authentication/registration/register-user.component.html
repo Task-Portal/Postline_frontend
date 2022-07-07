@@ -25,16 +25,7 @@
       </div>
     </div>
 
-<!--    <div class="row">-->
-<!--      <div class="input-field col s12">-->
-<!--        <input id="userName" #userName type="text" class="validate" formControlName="userName"-->
-<!--               (blur)="onBlur(userName)"-->
-<!--               required minlength="2" maxlength="50">-->
-<!--        <label for="userName">User Name</label>-->
-<!--        <span class="helper-text"-->
-<!--              data-error="User name is not valid" data-success="right"></span>-->
-<!--      </div>-->
-<!--    </div>-->
+
 
     <div class="row" >
       <div class="input-field col s12" >
@@ -72,10 +63,14 @@
       </div>
     </div>
 <!--    <div *ngIf="registrationError" class="error">{{registrationError}}</div>-->
-    <div class="btnGroup">
-      <button class="waves-effect waves-light btn deep-orange lighten-2 subBtn" type="submit" name="action"
+    <div class="submitBtn">
+      <button class="waves-effect waves-light btn deep-orange lighten-2" type="submit" name="action"
               [disabled]="registrationForm.invalid"
-      >Submit</button></div>
+      >Submit
+        <i class="material-icons right">send</i>
+      </button>
+
+    </div>
 
   </form>
     </div>

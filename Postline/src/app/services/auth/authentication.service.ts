@@ -1,5 +1,6 @@
+//#region Imports
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { EnvironmentUrlService } from '../environment-url.service';
 import { UserForRegistrationDto } from '../../interfaces/user/userForRegistration';
 import { RegistrationResponseDto } from '../../interfaces/response/registrationResponseDto';
@@ -9,6 +10,8 @@ import { Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ForgotPassword } from '../../interfaces/user/forgotPassword';
 import { ResetPasswordDto } from '../../interfaces/user/ResetPasswordDto';
+import { CustomEncoder } from '../../common/customEncoder';
+//#endregion
 
 @Injectable({
   providedIn: 'root',
@@ -100,5 +103,16 @@ export class AuthenticationService {
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
+  };
+
+  public confirmEmail = (route: string, token: string, email: string) => {
+    let params = new HttpParams({ encoder: new CustomEncoder() });
+    params = params.append('token', token);
+    params = params.append('email', email);
+
+    return this.http.get(
+      this.createCompleteRoute(route, this.envUrl.urlAddress),
+      { params: params }
+    );
   };
 }

@@ -193,6 +193,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { userRoutes } from '../../../routes/userRoutes';
 import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { PasswordConfirmationValidatorService } from '../../../services/custom-validators/password-confirmation-validator.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-registration',
@@ -295,17 +296,21 @@ export class RegisterUserComponent implements OnInit {
       email: formValues.email,
       password: formValues.password,
       confirmPassword: formValues.confirm,
+      clientURL: `${environment.clientUrl}/authentication/emailconfirmation`,
     };
 
     this.authService.registerUser(userRoutes.registration, user).subscribe({
       next: (_) => {
+        this.alertService.info(
+          ` The list was sent to ${user.email}. Please, confirm your email first before log in.`,
+          this.options
+        );
         this.router.navigate(['/authentication/login']);
       },
       error: (err: HttpErrorResponse) => {
         this.alertService.error(err?.error?.errors, this.options);
         this.errorMessage = err.message;
         this.showError = true;
-        console.log(err);
       },
     });
   };

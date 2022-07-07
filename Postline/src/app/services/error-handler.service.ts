@@ -15,6 +15,8 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class ErrorHandlerService implements HttpInterceptor {
   public errorMessage: string = '';
   constructor(private router: Router) {}
+
+  //#region HandleError
   public handleError = (error: HttpErrorResponse) => {
     if (error.status === 500) {
       this.handle500Error(error);
@@ -30,12 +32,16 @@ export class ErrorHandlerService implements HttpInterceptor {
       this.handleOtherError(error);
     }
   };
+  //#endregion
 
+  //#region Methods
   private handleUnauthorized = (error: HttpErrorResponse) => {
-    console.log(`handleUnauthorized `);
-    console.log(`Error - message: ${error.message}`);
     if (this.router.url === '/authentication/login') {
-      return 'Authentication failed. Wrong Username or Password';
+      error.error.errorMessage == undefined
+        ? (this.errorMessage = 'Email or password are wrong')
+        : (this.errorMessage = error.error.errorMessage);
+
+      return error.error.errorMessage;
     } else {
       this.router.navigate(['/authentication/login'], {
         queryParams: { returnUrl: this.router.url },
@@ -83,6 +89,9 @@ export class ErrorHandlerService implements HttpInterceptor {
     return 'Forbidden';
   };
 
+  //#endregion
+
+  //#region Intercept
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -94,4 +103,6 @@ export class ErrorHandlerService implements HttpInterceptor {
       })
     );
   }
+
+  //#endregion
 }

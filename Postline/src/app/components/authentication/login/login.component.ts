@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
       error: (err: HttpErrorResponse) => {
-        console.log(`Error Message from Login User ${err.message}`);
         this.errorMessage = err.message;
         this.showError = true;
       },
