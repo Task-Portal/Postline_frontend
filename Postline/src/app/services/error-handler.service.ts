@@ -36,7 +36,7 @@ export class ErrorHandlerService implements HttpInterceptor {
 
   //#region Methods
   private handleUnauthorized = (error: HttpErrorResponse) => {
-    if (this.router.url === '/authentication/login') {
+    if (this.router.url.startsWith('/authentication/login')) {
       error.error.errorMessage == undefined
         ? (this.errorMessage = 'Email or password are wrong')
         : (this.errorMessage = error.error.errorMessage);

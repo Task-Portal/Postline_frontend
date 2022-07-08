@@ -11,6 +11,7 @@ import { UserForAuthenticationDto } from '../../../interfaces/user/userForAuthen
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthResponseDto } from '../../../interfaces/response/authResponseDto';
 import { userRoutes } from '../../../routes/userRoutes';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
     const userForAuth: UserForAuthenticationDto = {
       email: login.email,
       password: login.password,
+      clientURL: `${environment.clientUrl}/authentication/forgotpassword`,
     };
     this.authService.loginUser(userRoutes.login, userForAuth).subscribe({
       next: (res: AuthResponseDto) => {
