@@ -11,6 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ForgotPassword } from '../../interfaces/user/forgotPassword';
 import { ResetPasswordDto } from '../../interfaces/user/ResetPasswordDto';
 import { CustomEncoder } from '../../common/customEncoder';
+import { TwoFactorDto } from '../../interfaces/twoFactor/twoFactorDto';
 //#endregion
 
 @Injectable({
@@ -26,18 +27,22 @@ export class AuthenticationService {
     private jwtHelper: JwtHelperService
   ) {}
 
+  //#region Is User Authenticated
   public isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem('token');
     console.log(
       `isUserAuthenticated:  ${token && !this.jwtHelper.isTokenExpired(token)}`
     );
-    if (token && !this.jwtHelper.isTokenExpired(token)) return true;
+    // if (token && !this.jwtHelper.isTokenExpired(token)) return true;
+    //
+    // return false;
 
-    return false;
-
-    // return !!(token && !this.jwtHelper.isTokenExpired(token));
+    return !!(token && !this.jwtHelper.isTokenExpired(token));
   };
 
+  //#endregion
+
+  //#region Is User in Role
   public isUserInRole = (expectedRole: string): boolean => {
     const token = localStorage.getItem('token');
     const decodedToken = this.jwtHelper.decodeToken(token!);
@@ -47,6 +52,8 @@ export class AuthenticationService {
       ];
     return role === expectedRole;
   };
+
+  //#endregion
 
   //#region Register User, CheckEmail, Login User, Logout, Forgot Password, Reset Password
   public registerUser = (route: string, body: UserForRegistrationDto) => {
@@ -91,6 +98,15 @@ export class AuthenticationService {
 
   //endregion
 
+  //#region Two step login
+  public twoStepLogin = (route: string, body: TwoFactorDto) => {
+    return this.http.post<AuthResponseDto>(
+      this.createCompleteRoute(route, this.envUrl.urlAddress),
+      body
+    );
+  };
+  //#endregion
+
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
     this.authChangeSub.next(isAuthenticated);
   };
@@ -105,6 +121,7 @@ export class AuthenticationService {
     return `${envAddress}/${route}`;
   };
 
+  //#region Cofnirm Email
   public confirmEmail = (route: string, token: string, email: string) => {
     let params = new HttpParams({ encoder: new CustomEncoder() });
     params = params.append('token', token);
@@ -115,4 +132,6 @@ export class AuthenticationService {
       { params: params }
     );
   };
+
+  //#endregion
 }

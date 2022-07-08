@@ -1,0 +1,31 @@
+<div class="my_container">
+  <div *ngIf="showError" class="error_text">
+    {{errorMessage}}
+  </div>
+  <h4 class="header">Two Step Verification</h4>
+  <div class="card s11">
+    <form [formGroup]="twoStepForm" autocomplete="off"  (ngSubmit)="loginUser(twoStepForm.value)">
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input id="twoFactorCode" type="text" class="validate" formControlName="twoFactorCode" required>
+          <label for="twoFactorCode">Code</label>
+          <span class="helper-text"
+                data-error="Code is not valid" data-success="right"></span>
+        </div>
+      </div>
+
+
+
+
+      <div class="submitBtn">
+        <button class="btn waves-effect waves-light  deep-orange lighten-2" type="submit" name="action"
+                [disabled]="twoStepForm.invalid"
+        >Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { LoginComponent } from '../../components/authentication/login/login.comp
 import { ForgotPasswordComponent } from '../../components/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from '../../components/authentication/reset-password/reset-password.component';
 import { EmailConfirmationComponent } from '../../components/authentication/email-confirmation/email-confirmation.component';
+import { TwoStepVerificationComponent } from 'src/app/components/authentication/two-step-verification/two-step-verification.component';
 //#endregion
 
 @NgModule({
@@ -21,6 +22,7 @@ import { EmailConfirmationComponent } from '../../components/authentication/emai
       { path: 'forgotpassword', component: ForgotPasswordComponent },
       { path: 'resetpassword', component: ResetPasswordComponent },
       { path: 'emailconfirmation', component: EmailConfirmationComponent },
+      { path: 'twostepverification', component: TwoStepVerificationComponent },
     ]),
   ],
 })

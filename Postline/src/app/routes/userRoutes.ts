@@ -6,4 +6,5 @@ export const userRoutes = {
   forgotPassword: 'auth/forgotpassword',
   resetPassword: 'auth/resetPassword',
   emailConfirmation: 'auth/emailconfirmation',
+  twoStepVerification: 'auth/twostepverification',
 };
