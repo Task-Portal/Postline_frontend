@@ -12,6 +12,13 @@ import { ForgotPassword } from '../../interfaces/user/forgotPassword';
 import { ResetPasswordDto } from '../../interfaces/user/ResetPasswordDto';
 import { CustomEncoder } from '../../common/customEncoder';
 import { TwoFactorDto } from '../../interfaces/twoFactor/twoFactorDto';
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
+import { ExternalAuthDto } from '../../interfaces/response/externalAuthDto';
+
 //#endregion
 
 @Injectable({
@@ -19,13 +26,43 @@ import { TwoFactorDto } from '../../interfaces/twoFactor/twoFactorDto';
 })
 export class AuthenticationService {
   private authChangeSub = new Subject<boolean>();
+  private extAuthChangeSub = new Subject<SocialUser>();
   public authChanged = this.authChangeSub.asObservable();
+  public extAuthChanged = this.extAuthChangeSub.asObservable();
+  public isExternalAuth: boolean;
 
   constructor(
     private http: HttpClient,
     private envUrl: EnvironmentUrlService,
-    private jwtHelper: JwtHelperService
-  ) {}
+    private jwtHelper: JwtHelperService,
+    private externalAuthService: SocialAuthService
+  ) {
+    this.externalAuthService.authState.subscribe((user: any) => {
+      console.log(user);
+      this.extAuthChangeSub.next(user);
+      this.isExternalAuth = true;
+    });
+  }
+
+  //#region Google Sign In and Sing Out
+  public signInWithGoogle = () => {
+    this.externalAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  };
+
+  public signOutExternal = () => {
+    this.externalAuthService.signOut();
+  };
+
+  //#endregion
+
+  //#region Exteranl Login
+  public externalLogin = (route: string, body: ExternalAuthDto) => {
+    return this.http.post<AuthResponseDto>(
+      this.createCompleteRoute(route, this.envUrl.urlAddress),
+      body
+    );
+  };
+  //#endregion
 
   //#region Is User Authenticated
   public isUserAuthenticated = (): boolean => {
@@ -121,7 +158,7 @@ export class AuthenticationService {
     return `${envAddress}/${route}`;
   };
 
-  //#region Cofnirm Email
+  //#region Confirm Email
   public confirmEmail = (route: string, token: string, email: string) => {
     let params = new HttpParams({ encoder: new CustomEncoder() });
     params = params.append('token', token);

@@ -26,6 +26,9 @@ export class MenuComponent implements OnInit {
 
   public logout = () => {
     this.authService.logout();
+
+    if (this.authService.isExternalAuth) this.authService.signOutExternal();
+
     this.router.navigate(['/']);
   };
 }

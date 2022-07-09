@@ -7,4 +7,5 @@ export const userRoutes = {
   resetPassword: 'auth/resetPassword',
   emailConfirmation: 'auth/emailconfirmation',
   twoStepVerification: 'auth/twostepverification',
+  externalLogin: 'auth/externallogin',
 };

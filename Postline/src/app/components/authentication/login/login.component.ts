@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthResponseDto } from '../../../interfaces/response/authResponseDto';
 import { userRoutes } from '../../../routes/userRoutes';
 import { environment } from '../../../../environments/environment';
+import { ExternalAuthDto } from '../../../interfaces/response/externalAuthDto';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
   showError: boolean;
 
+  //#region Ctor
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
     this.buildLoginForm();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+  //#endregion
 
   buildLoginForm() {
     this.loginForm = this.formBuilder.group({
@@ -42,7 +45,43 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //#region External Login for Google
+  externalLogin = () => {
+    this.showError = false;
+    this.authService.signInWithGoogle();
+
+    this.authService.extAuthChanged.subscribe((user) => {
+      const externalAuth: ExternalAuthDto = {
+        provider: user.provider,
+        idToken: user.idToken,
+      };
+      this.validateExternalAuth(externalAuth);
+    });
+  };
+  //#endregion
+
+  private validateExternalAuth(externalAuth: ExternalAuthDto) {
+    this.authService
+      .externalLogin(userRoutes.externalLogin, externalAuth)
+      .subscribe({
+        next: (res) => {
+          localStorage.setItem('token', res.token);
+          this.authService.sendAuthStateChangeNotification(
+            res.isAuthSuccessful
+          );
+          this.router.navigate([this.returnUrl]);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.errorMessage = err.message;
+          this.showError = true;
+          this.authService.signOutExternal();
+        },
+      });
+  }
+
+  //#region Login User
   loginUser = (loginFormValue: any) => {
+    this.authService.isExternalAuth = false;
     this.showError = false;
     const login = { ...loginFormValue };
     const userForAuth: UserForAuthenticationDto = {
@@ -74,6 +113,7 @@ export class LoginComponent implements OnInit {
       },
     });
   };
+  //#endregion
 
   private static homeRoutePerRole(role: Role) {
     switch (role) {

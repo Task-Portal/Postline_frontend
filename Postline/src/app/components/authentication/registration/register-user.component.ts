@@ -299,6 +299,10 @@ export class RegisterUserComponent implements OnInit {
       clientURL: `${environment.clientUrl}/authentication/emailconfirmation`,
     };
 
+    //#region ClientUrl Comments
+    ('In case of changes of clientUrl. Also chnage at the backend at GenerateEmailConfirmationToken. Authentication Service');
+    //#endregion
+
     this.authService.registerUser(userRoutes.registration, user).subscribe({
       next: (_) => {
         this.alertService.info(
