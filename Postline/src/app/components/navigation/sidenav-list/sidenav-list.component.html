@@ -1,0 +1,30 @@
+<mat-nav-list>
+<!--#region Links  -->
+  <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
+    <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
+  </a>
+  <a *ngIf="!isUserAuthenticated"
+    mat-list-item routerLink="/authentication/login" (click)="onSidenavClose()">
+    <mat-icon>login</mat-icon> <span class="nav-caption">Login</span>
+  </a>
+  <a  *ngIf="!isUserAuthenticated"
+    mat-list-item routerLink="/authentication/register" (click)="onSidenavClose()">
+    <mat-icon>app_registration</mat-icon><span class="nav-caption">Registration</span>
+  </a>
+
+   <a  *ngIf="isUserAuthenticated"
+    mat-list-item  (click)="logout()">
+    <mat-icon>logout</mat-icon><span class="nav-caption">Log out</span>
+  </a>
+<!--#endregion-->
+
+  <mat-list-item [matMenuTriggerFor]="menu">
+    <mat-icon>unfold_more</mat-icon>
+    <a >Example</a>
+  </mat-list-item>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onSidenavClose()">View profile</button>
+    <button mat-menu-item (click)="onSidenavClose()">Add contact</button>
+  </mat-menu>
+
+</mat-nav-list>
