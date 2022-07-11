@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/auth/authentication.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AuthenticationService } from '../../../services/auth/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
-export class MenuComponent implements OnInit {
+export class HeaderComponent implements OnInit {
+  @Output() public sidenavToggle = new EventEmitter();
+
   public isUserAuthenticated: boolean;
   constructor(
     private authService: AuthenticationService,
@@ -30,5 +32,9 @@ export class MenuComponent implements OnInit {
     if (this.authService.isExternalAuth) this.authService.signOutExternal();
 
     this.router.navigate(['/']);
+  };
+
+  public onToggleSidenav = () => {
+    this.sidenavToggle.emit();
   };
 }

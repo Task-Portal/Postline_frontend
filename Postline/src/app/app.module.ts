@@ -1,7 +1,6 @@
 //#region Imports
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/authentication/page-not-found/page-not-found.component';
@@ -13,7 +12,6 @@ import { AlertModule } from './modules/alert/alert.module';
 import { InternalServerComponent } from './components/authentication/error/internal-server/internal-server.component';
 import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
 import { ErrorHandlerService } from './services/error-handler.service';
-import { MenuComponent } from './components/menu/menu.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { PrivacyComponent } from './components/authentication/privacy/privacy.component';
 import { ForbiddenComponent } from './components/authentication/forbidden/forbidden.component';
@@ -29,7 +27,14 @@ import {
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 import { environment } from '../environments/environment';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './modules/material/material.module';
+import { LayoutComponent } from './components/layout/layout.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RoutingModule } from './modules/routing/routing.module';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/navigation/header/header.component';
+import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
 //#endregion
 
 @NgModule({
@@ -41,17 +46,19 @@ import { environment } from '../environments/environment';
     RegisterUserComponent,
     InternalServerComponent,
     PostDetailsComponent,
-    MenuComponent,
+
     PrivacyComponent,
     ForbiddenComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     EmailConfirmationComponent,
     TwoStepVerificationComponent,
+    LayoutComponent,
+    HeaderComponent,
+    SidenavListComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     AlertModule,
@@ -63,6 +70,11 @@ import { environment } from '../environments/environment';
         disallowedRoutes: [],
       },
     }),
+    BrowserAnimationsModule,
+    MaterialModule,
+    FlexLayoutModule,
+    RoutingModule,
+    RouterModule,
   ],
   providers: [
     {

@@ -50,4 +50,8 @@ export class HomeComponent implements OnInit {
       },
     });
   };
+
+  public executeSelectedChange = (event: any) => {
+    console.log(event);
+  };
 }

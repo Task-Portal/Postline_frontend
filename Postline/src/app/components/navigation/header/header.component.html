@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/home">Postline</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+
+    <!--#region Links-->
+      <li *ngIf="!isUserAuthenticated">
+        <a routerLink="/authentication/login">
+          Login
+        </a>
+      </li>
+
+      <li *ngIf="!isUserAuthenticated">
+        <a routerLink="/authentication/register">
+          Registration
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/privacy">
+          Privacy
+        </a>
+      </li>
+
+      <li *ngIf="isUserAuthenticated">
+        <a (click)="logout()">
+          Logout
+        </a>
+      </li>
+<!--#endregion-->
+
+    </ul>
+  </div>
+</mat-toolbar>
