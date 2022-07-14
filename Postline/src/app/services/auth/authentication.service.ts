@@ -18,6 +18,7 @@ import {
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { ExternalAuthDto } from '../../interfaces/response/externalAuthDto';
+import { Role } from '../../enums/auth.enum';
 
 //#endregion
 
@@ -25,12 +26,15 @@ import { ExternalAuthDto } from '../../interfaces/response/externalAuthDto';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  //#region Properties
   private authChangeSub = new Subject<boolean>();
   private extAuthChangeSub = new Subject<SocialUser>();
   public authChanged = this.authChangeSub.asObservable();
   public extAuthChanged = this.extAuthChangeSub.asObservable();
   public isExternalAuth: boolean;
+  //#endregion
 
+  //#region Ctor
   constructor(
     private http: HttpClient,
     private envUrl: EnvironmentUrlService,
@@ -43,6 +47,7 @@ export class AuthenticationService {
       this.isExternalAuth = true;
     });
   }
+  //#endregion
 
   //#region Google Sign In and Sing Out
   public signInWithGoogle = () => {
@@ -90,6 +95,16 @@ export class AuthenticationService {
     return role === expectedRole;
   };
 
+  //#endregion
+
+  //#region Get User Role
+  public getUserRole = (): string => {
+    const token = localStorage.getItem('token');
+    const decodedToken = this.jwtHelper.decodeToken(token!);
+    return decodedToken[
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+    ];
+  };
   //#endregion
 
   //#region Register User, CheckEmail, Login User, Logout, Forgot Password, Reset Password
@@ -144,19 +159,25 @@ export class AuthenticationService {
   };
   //#endregion
 
+  //#region Send Auth State Change Notification
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
     this.authChangeSub.next(isAuthenticated);
   };
+  //#endregion
 
+  //#region Get Claims
   public getClaims = (route: string) => {
     return this.http.get(
       this.createCompleteRoute(route, this.envUrl.urlAddress)
     );
   };
+  //#endregion
 
+  //#region Create Complete Route
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
   };
+  //#endregion
 
   //#region Confirm Email
   public confirmEmail = (route: string, token: string, email: string) => {

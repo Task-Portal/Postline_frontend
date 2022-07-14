@@ -16,6 +16,10 @@
     mat-list-item  (click)="logout()">
     <mat-icon>logout</mat-icon><span class="nav-caption">Log out</span>
   </a>
+  <a  *ngIf="isUserAuthenticated"
+    mat-list-item routerLink="/user/profile"  (click)="onSidenavClose()">
+    <mat-icon>profile</mat-icon><span class="nav-caption">Profile</span>
+  </a>
 <!--#endregion-->
 
   <mat-list-item [matMenuTriggerFor]="menu">

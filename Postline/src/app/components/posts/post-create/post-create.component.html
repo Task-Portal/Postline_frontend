@@ -1,0 +1,41 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="700px" fxFlex.xs="100%">
+    <mat-card-title>Create a new post</mat-card-title>
+    <form [formGroup]="postForm" (ngSubmit)="createPost(postForm.value)" fxLayout="column wrap"
+          fxLayoutAlign="center center" fxLayoutGap="10px">
+
+      <div class="input-field s12" style="width: 100%">
+      <input type="text" placeholder="Title" formControlName="title" id="title">
+      </div>
+
+      <div class="input-field s12" style="width: 100%">
+        <textarea id="icon_prefix2" class="materialize-textarea " formControlName="body"></textarea>
+        <label for="icon_prefix2">Your text</label>
+      </div>
+
+
+
+<!--      <mat-form-field appearance="fill">-->
+<!--        <mat-label>Category</mat-label>-->
+<!--        <mat-select formControlName="category">-->
+<!--          <mat-option *ngFor="let category of categories" >-->
+<!--            {{category.categoryName}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+
+
+      <mat-form-field>
+        <mat-select placeholder="Categories" [(ngModel)]="selectedValue" formControlName="category" >
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{category.categoryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-card-actions>
+        <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="postForm.invalid">Create</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

@@ -7,7 +7,7 @@
 <div class="card_holder">
   <div class="col s12 m6">
     <div class="card">
-      <div class="author" >Author:  {{post.userName}}
+      <div class="author" >Author:  {{post.firstName}} {{post.lastName}}
         <div class="rating" >Rating:  {{post.rating}}</div>
       </div>
 
@@ -17,7 +17,7 @@
         <p>{{post.body}}</p>
       </div>
       <div class="card-action">
-        <a  [routerLink]="['/home']" >Back </a>
+        <a  (click)="backClicked()" >Back </a>
         <div class="created" >  {{post.postDate |date:"dd/MM/yy"}}</div>
       </div>
     </div>

@@ -3,7 +3,8 @@ export interface IPost {
   title: string;
   body: string;
   categoryName: string;
-  userName: string;
+  firstName: string;
+  lastName:string
   postDate: Date;
   rating: number;
 }

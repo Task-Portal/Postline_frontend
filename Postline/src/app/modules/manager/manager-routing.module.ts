@@ -5,6 +5,7 @@ import { ManagerComponent } from '../../components/manager/manager/manager.compo
 import { UserManagementComponent } from '../../components/manager/user-management/user-management.component';
 import { Role } from '../../enums/auth.enum';
 import { AuthGuard } from '../../services/guards/auth.guard';
+import {ManagerGuard} from "../../services/guards/manager.guard";
 
 const routes: Routes = [
   {
@@ -15,18 +16,12 @@ const routes: Routes = [
       {
         path: 'home',
         component: ManagerHomeComponent,
-        canActivate: [AuthGuard],
-        data: {
-          expectedRole: Role.Manager,
-        },
+        canActivate: [ManagerGuard],
       },
       {
         path: 'users',
         component: UserManagementComponent,
-        canActivate: [AuthGuard],
-        data: {
-          expectedRole: Role.Manager,
-        },
+        canActivate: [ManagerGuard],
       },
     ],
   },

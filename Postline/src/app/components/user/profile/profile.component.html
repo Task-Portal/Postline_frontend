@@ -1,29 +1,68 @@
-<div class="container">
 
-  <h2 class="general_title">My Posts</h2>
-  <ul >
-    <li *ngFor="let post of posts">
-      <div class="card_holder">
-        <div class="col s12 m6">
-          <div class="card">
-            <div class="author" >Author:  {{post.userName}}
-              <div class="rating" >Rating:  {{post.rating}}</div>
-            </div>
 
-            <div class="card-content">
-              <span class="card-title">{{post.title}}</span>
-              <p>{{post.body}}</p>
-            </div>
-            <div class="card-action">
-              <a href="#">See details</a>
-              <div class="created" >  {{post.postDate |date:"dd/MM/yy"}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div fxLayout fxLayoutAlign="end center">
+  <a [routerLink]="['/user/create']" mat-button color="primary">Create Post</a>
+</div>
 
-    </li>
-  </ul>
+<div fxLayout fxLayoutAlign="end center">
+
+    <input  class="filter" type="text" (keyup)="doFilter($event)" placeholder="Filter">
 
 
 </div>
+
+
+<table mat-table [dataSource]="dataSource" matSort matSortStart="desc">
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="postDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Post </th>
+    <td mat-cell *matCellDef="let element"> {{element.postDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="categoryName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rating">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+    <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef> Details </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">
+        <mat-icon class="mat-18">reorder</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Update </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+        <mat-icon class="mat-18">system_update</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+</mat-paginator>

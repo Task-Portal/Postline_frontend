@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsRepositoryService } from '../../services/repositories/posts-repository.service';
-import { IPost } from '../../interfaces/ipost';
-import { first } from 'rxjs';
+import { IPost } from '../../interfaces/post/ipost';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 import { AlertService } from '../../services/alert.service';

@@ -1,6 +1,22 @@
-p{
-  font-weight: bold;
+section div p:nth-child(1){
   font-size: 50px;
   text-align: center;
-  color: #c72d2d;
+  color: #f44336;
+}
+
+section div p:nth-child(2){
+  font-size: 20px;
+  text-align: center;
+  color: #9eaaea;
+}
+
+mat-checkbox {
+  color: #9eaaea;
+}
+
+section div h1{
+  text-align: center;
+  color: #9eaaea;
+  position: relative;
+  top: -85px;
 }

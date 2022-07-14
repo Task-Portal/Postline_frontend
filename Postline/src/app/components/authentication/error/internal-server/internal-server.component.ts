@@ -6,8 +6,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./internal-server.component.css'],
 })
 export class InternalServerComponent implements OnInit {
-  errorMessage: string = '500 SERVER ERROR, CONTACT ADMINISTRATOR!!!!';
+  public reportedError: boolean;
+  public errorPercentage: number = 0;
+  public timer: any;
   constructor() {}
 
   ngOnInit(): void {}
+
+  public checkChanged = (event: { checked: boolean; }) => {
+    this.reportedError = event.checked;
+    this.reportedError ? this.startTimer() : this.stopTimer();
+  }
+  private startTimer = () => {
+    this.timer = setInterval(() => {
+      this.errorPercentage += 1;
+      if (this.errorPercentage === 100) {
+        clearInterval(this.timer);
+      }
+    }, 30);
+  }
+  private stopTimer = () => {
+    clearInterval(this.timer);
+    this.errorPercentage = 0;
+  }
 }

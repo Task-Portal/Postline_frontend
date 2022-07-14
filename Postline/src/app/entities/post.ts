@@ -1,13 +1,14 @@
 import { IUser } from '../interfaces/user/user';
 import { Role } from '../enums/auth.enum';
-import { IPost } from '../interfaces/ipost';
+import { IPost } from '../interfaces/post/ipost';
 
 export class Post implements IPost {
   constructor(
     public id = '',
     public body = '',
     public categoryName = '',
-    public userName = '',
+    public firstName = '',
+    public lastName = '',
     public postDate = new Date(),
     public rating = 0,
     public title = ''
@@ -22,7 +23,8 @@ export class Post implements IPost {
       post.id,
       post.body,
       post.categoryName,
-      post.userName,
+      post.firstName,
+      post.lastName,
       post.postDate,
       post.rating,
       post.title

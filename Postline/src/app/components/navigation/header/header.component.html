@@ -12,19 +12,19 @@
 
     <!--#region Links-->
       <li *ngIf="!isUserAuthenticated">
-        <a routerLink="/authentication/login">
+        <a routerLink="/authentication/login" routerLinkActive="onSelect">
           Login
         </a>
       </li>
 
       <li *ngIf="!isUserAuthenticated">
-        <a routerLink="/authentication/register">
+        <a routerLink="/authentication/register" routerLinkActive="onSelect">
           Registration
         </a>
       </li>
 
       <li>
-        <a routerLink="/privacy">
+        <a routerLink="/privacy" routerLinkActive="onSelect">
           Privacy
         </a>
       </li>
@@ -32,6 +32,12 @@
       <li *ngIf="isUserAuthenticated">
         <a (click)="logout()">
           Logout
+        </a>
+      </li>
+
+      <li *ngIf="isUserAuthenticated">
+        <a routerLink="/user/profile" routerLinkActive="onSelect" >
+          Profile
         </a>
       </li>
 <!--#endregion-->

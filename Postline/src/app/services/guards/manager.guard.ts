@@ -18,6 +18,7 @@ export class ManagerGuard implements CanActivate {
     private router: Router
   ) {}
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
     if (this.authService.isUserInRole('Manager')) return true;
 
     this.router.navigate(['/forbidden'], {

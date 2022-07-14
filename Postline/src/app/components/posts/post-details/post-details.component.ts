@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { PostsRepositoryService } from '../../../services/repositories/posts-repository.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IPost } from '../../../interfaces/ipost';
+import { IPost } from '../../../interfaces/post/ipost';
 import { postsRoutes } from '../../../routes/postsRoutes';
 import { AlertService } from '../../../services/alert.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-post-details',
@@ -20,7 +21,8 @@ export class PostDetailsComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private errorHandler: ErrorHandlerService,
-    private alert: AlertService
+    private alert: AlertService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,6 @@ export class PostDetailsComponent implements OnInit {
 
   getPostDetails = () => {
     const id: string = this.activeRoute.snapshot.params['id'];
-    // const apiUrl: string = `api/owner/${id}/account`;
     this.repository.getPost(postsRoutes.getOnePost(id)).subscribe({
       next: (post: IPost) => (this.post = post),
       error: (err: HttpErrorResponse) => {
@@ -41,4 +42,8 @@ export class PostDetailsComponent implements OnInit {
       },
     });
   };
+
+  backClicked() {
+    this.location.back();
+  }
 }

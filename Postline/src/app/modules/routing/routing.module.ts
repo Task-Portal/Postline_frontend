@@ -10,6 +10,7 @@ import { ForbiddenComponent } from '../../components/authentication/forbidden/fo
 import { PostDetailsComponent } from '../../components/posts/post-details/post-details.component';
 import { LoginComponent } from '../../components/authentication/login/login.component';
 import { PageNotFoundComponent } from '../../components/authentication/page-not-found/page-not-found.component';
+import {A} from "@angular/cdk/keycodes";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -35,7 +36,7 @@ const routes: Routes = [
     path: 'manager',
     loadChildren: () =>
       import('../manager/manager.module').then((m) => m.ManagerModule),
-    canLoad: [AuthGuard],
+    canActivate: [AuthGuard,ManagerGuard],
   },
   {
     path: 'user',
