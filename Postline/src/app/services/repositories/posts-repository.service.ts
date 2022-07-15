@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { EnvironmentUrlService } from '../environment-url.service';
 import {PostForCreationDto} from "../../interfaces/post/postForCreationDto";
 import {IPost} from "../../interfaces/post/ipost";
+import {IPostForUpdateDto} from "../../interfaces/post/postForUpdateDto";
 
 @Injectable({
   providedIn: 'root',
@@ -38,11 +39,15 @@ import {IPost} from "../../interfaces/post/ipost";
     return this.http.post(this.createCompleteRoute(route, this.envUrl.urlAddress), body, this.generateHeaders());
   }
 
-  //Todo change body:any
-  public update = (route: string, body:any) => {
+
+  public update = (route: string, body:IPostForUpdateDto) => {
     return this.http.put(this.createCompleteRoute(route, this.envUrl.urlAddress), body, this.generateHeaders());
   }
 
+
+  public delete = (route: string) => {
+    return this.http.delete(this.createCompleteRoute(route, this.envUrl.urlAddress));
+  }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;

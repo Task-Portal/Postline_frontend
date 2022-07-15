@@ -35,7 +35,6 @@ import {RoutingModule} from './modules/routing/routing.module';
 import {RouterModule} from '@angular/router';
 import {HeaderComponent} from './components/navigation/header/header.component';
 import {SidenavListComponent} from './components/navigation/sidenav-list/sidenav-list.component';
-import {PostCreateComponent} from './components/posts/post-create/post-create.component';
 import {SharedModule} from "./modules/shared/shared.module";
 
 //#endregion
@@ -49,7 +48,6 @@ import {SharedModule} from "./modules/shared/shared.module";
     RegisterUserComponent,
     InternalServerComponent,
     PostDetailsComponent,
-
     PrivacyComponent,
     ForbiddenComponent,
     ForgotPasswordComponent,
@@ -59,7 +57,7 @@ import {SharedModule} from "./modules/shared/shared.module";
     LayoutComponent,
     HeaderComponent,
     SidenavListComponent,
-    PostCreateComponent,
+
   ],
   imports: [
     BrowserModule,

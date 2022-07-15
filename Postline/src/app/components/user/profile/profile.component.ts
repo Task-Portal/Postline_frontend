@@ -8,6 +8,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {Router} from "@angular/router";
+import Swal from 'sweetalert2';
 
 
 
@@ -75,10 +76,47 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.router.navigate([url]);
   }
   public redirectToUpdate = (id: string) => {
-
+    const updateUrl: string = `/user/update/${id}`;
+    this.router.navigate([updateUrl]);
   }
   public redirectToDelete = (id: string) => {
 
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       this.deletePost(id)
+      }
+    })
+
+  }
+
+  private deletePost(id:string){
+
+    this.repoService.delete(postsRoutes.deletePost(id)).subscribe({
+      next:(res)=>{
+      this.dataSource.data=  this.dataSource.data.filter(s=>s.id!=id)
+        Swal.fire({
+          title: 'Hurray!!',
+          text:   "Post has been deleted successfully",
+          icon: 'success'
+        });
+
+      },
+      error:(res)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+      }
+    })
   }
 
 }
