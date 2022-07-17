@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 
 
+
   ngOnInit(): void {
 
     this.getAllPosts()
@@ -65,7 +66,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   public getAllPosts = () => {
 
     this.repoService.getUserPosts(postsRoutes.getUserPosts).subscribe(res => {
-      console.log("Data from server, user posts: ", res)
       this.dataSource.data = res as IPost[];
     })
 

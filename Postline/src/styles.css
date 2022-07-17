@@ -10,7 +10,6 @@ html, body {
 }
 
 body{
-  background: #f3f3dd;
   font-family: 'Lora', serif;
  /*min-height: 100%;*/
 }
@@ -119,7 +118,35 @@ body{
 /*#endregion*/
 
 
+/*#region Paginator*/
+.paginator{
+  background: #e5e8c2;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  float: right;
+}
 
+.numberPerPage{
+  max-width: 100px;
+  width: 100%;
+}
+
+.btn_arrows{
+
+  border: 1px solid black;
+  border-radius: 10px;
+  background: #9eaaea;
+}
+
+.text_paginator{
+  display: flex;
+  justify-content: center;
+}
+/*#endregion*/
 
 
 

@@ -7,6 +7,7 @@ import { EnvironmentUrlService } from '../environment-url.service';
 import {PostForCreationDto} from "../../interfaces/post/postForCreationDto";
 import {IPost} from "../../interfaces/post/ipost";
 import {IPostForUpdateDto} from "../../interfaces/post/postForUpdateDto";
+import {IPostWithPagination} from "../../interfaces/post/ipostWithPagination";
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ import {IPostForUpdateDto} from "../../interfaces/post/postForUpdateDto";
   ) {}
 
   public getPosts = (route: string) => {
-    return this.http.get<IPost[]>(
+    return this.http.get<IPostWithPagination>(
       this.createCompleteRoute(route, this.envUrl.urlAddress)
     );
   };

@@ -19,3 +19,18 @@ mat-tab-group {
 mat-tab-group p {
   padding-top: 20px;
 }
+
+.module-border-wrap {
+  max-width: 250px;
+  padding: 1rem;
+  position: relative;
+  background: linear-gradient(to right, #c8ff00, purple);
+  padding: 3px;
+}
+
+.module {
+  background: #ecdcdc;
+  color: white;
+  padding: 2rem;
+}
+
