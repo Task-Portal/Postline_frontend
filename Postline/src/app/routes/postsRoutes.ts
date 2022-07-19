@@ -1,16 +1,20 @@
 export const postsRoutes = {
-  getAllPost: (pageNumber:number, pageSize:number)=>`post?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+  // getAllPost: (pageNumber: number, pageSize: number) => `post?pageNumber=${pageNumber}&pageSize=${pageSize}`,
   getOnePost: (id: string) => `post/${id}`,
-  getUserPosts:'post/user',
-  createPost:"post",
-  updatePost:  `post`,
-  deletePost:(id: string) => `post/${id}`,
-  getPostsByCategory:(pageNumber:number, pageSize:number,categoryName:string)=>
-    `post?pageNumber=${pageNumber}&pageSize=${pageSize}&categoryName=${categoryName}`,
+  getUserPosts: 'post/user',
+  createPost: "post",
+  updatePost: `post`,
+  deletePost: (id: string) => `post/${id}`,
 
-  getPostsByDate:(pageNumber:number, pageSize:number,postsFrom:string, postsTo:string)=>
-    `post?pageNumber=${pageNumber}&pageSize=${pageSize}&postFrom=${postsFrom}&postTo=${postsTo}`,
+  generateRoute: (pageNumber: number, pageSize: number, postsFrom: string, postsTo: string, categoryName: string) => {
 
-  getPostsByDateAndCategory:(pageNumber:number, pageSize:number,postsFrom:string, postsTo:string,categoryName:string)=>
-    `post?pageNumber=${pageNumber}&pageSize=${pageSize}&postFrom=${postsFrom}&postTo=${postsTo}&categoryName=${categoryName}`
+    let route = `post?pageNumber=${pageNumber}&pageSize=${pageSize}`
+
+    if (postsFrom) route += `&postFrom=${postsFrom}&postTo=${postsTo}`
+
+    if (categoryName) route += `&categoryName=${categoryName}`
+
+
+    return route
+  }
 };

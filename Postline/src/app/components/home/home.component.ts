@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
 
     this.categoryRepo.getCategories(categoryRoutes.getAllCategories).subscribe(res => {
       this.categories = res;
-      console.log("Getting Categories: ", this.categoryName)
+
     })
   }
 
@@ -140,19 +140,9 @@ export class HomeComponent implements OnInit {
       this.toDate = this.mis.addDays(new Date(this.toDate), 1).toISOString().split('T')[0]
     }
 
+    return this.AreDatesWrong() ? "" :
+      postsRoutes.generateRoute(this.currentPage, this.pageSize, this.fromDate, this.toDate, this.categoryName)
 
-    if (this.categoryName && this.fromDate) {
-
-      return this.AreDatesWrong() ? "" :
-        postsRoutes.getPostsByDateAndCategory(this.currentPage, this.pageSize, this.fromDate, this.toDate, this.categoryName)
-    } else if (this.categoryName) {
-      return postsRoutes.getPostsByCategory(this.currentPage, this.pageSize, this.categoryName)
-    } else if (this.fromDate) {
-      return this.AreDatesWrong() ? "" :
-        postsRoutes.getPostsByDate(this.currentPage, this.pageSize, this.fromDate, this.toDate,)
-    }
-
-    return postsRoutes.getAllPost(this.currentPage, this.pageSize)
 
   }
 
