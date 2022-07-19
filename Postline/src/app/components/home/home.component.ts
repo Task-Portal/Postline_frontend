@@ -24,10 +24,10 @@ export class HomeComponent implements OnInit {
   posts: IPost[];
 
   //#region Filter
-  categoryName: string
+  categoryName: string|undefined
   firstPanel = "Filter"
-  fromDate: string
-  toDate: string
+  fromDate: string |undefined
+  toDate: string|undefined
 
   //#endregion
 
@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit {
     if (size !== 0) this.pageSize = size
     this.getAllPosts();
     this.getCategories()
+
   }
 
   public getPostDetails = (id: string) => {
@@ -124,9 +125,9 @@ export class HomeComponent implements OnInit {
 //#endregion
 
   onClear() {
-    this.categoryName = ""
-    this.toDate = ""
-    this.fromDate = ""
+    this.categoryName = undefined
+    this.toDate = undefined
+    this.fromDate = undefined
   }
 
   getHref(): (string) {
@@ -147,7 +148,7 @@ export class HomeComponent implements OnInit {
   }
 
   AreDatesWrong(): boolean {
-    if (new Date(this.fromDate) > new Date(this.toDate)) {
+    if (this.fromDate&&this.toDate&& new Date(this.fromDate) > new Date(this.toDate)) {
 
       Swal.fire({
         icon: 'error',

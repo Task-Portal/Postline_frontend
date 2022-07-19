@@ -1,6 +1,6 @@
 
 <div class="btnContainer">
-<app-accordion [title]="firstPanel" [isHidden]="true" [active]="categoryName!=''||fromDate !=''">
+<app-accordion [title]="firstPanel" [isHidden]="true" [active]="categoryName!=undefined||fromDate !=undefined||toDate !=undefined">
   <div class="filter">
     <div>
       <mat-form-field>

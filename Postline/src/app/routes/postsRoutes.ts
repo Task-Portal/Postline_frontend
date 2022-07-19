@@ -6,7 +6,7 @@ export const postsRoutes = {
   updatePost: `post`,
   deletePost: (id: string) => `post/${id}`,
 
-  generateRoute: (pageNumber: number, pageSize: number, postsFrom: string, postsTo: string, categoryName: string) => {
+  generateRoute: (pageNumber: number, pageSize: number, postsFrom: string|undefined, postsTo: string|undefined, categoryName: string|undefined) => {
 
     let route = `post?pageNumber=${pageNumber}&pageSize=${pageSize}`
 
