@@ -1,0 +1,7 @@
+<span class="accordion_container">
+<a class="accordion_title waves-effect waves-light" [ngClass]="{'filterActive': active}"
+   (click)="isHidden=!isHidden">{{title}}</a>
+  <div class ="accordion_Body" [hidden]="isHidden" >
+   <ng-content></ng-content>
+  </div>
+</span>

@@ -1,0 +1,24 @@
+.accordion_container{
+  margin:5px
+}
+
+.btn {
+  border: 2px solid #faf7f7;
+  background: white;
+  color: #039be5;
+  font-weight: bold;
+
+}
+
+.accordion_title{
+  font-size: 18px;
+  font-weight: bold;
+  background: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.filterActive{
+  background: #ecdcdc;
+}
+

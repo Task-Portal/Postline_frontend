@@ -36,6 +36,7 @@ import {RouterModule} from '@angular/router';
 import {HeaderComponent} from './components/navigation/header/header.component';
 import {SidenavListComponent} from './components/navigation/sidenav-list/sidenav-list.component';
 import {SharedModule} from "./modules/shared/shared.module";
+import { AccordionComponent } from './components/shared/accordion/accordion.component';
 
 //#endregion
 
@@ -57,6 +58,7 @@ import {SharedModule} from "./modules/shared/shared.module";
     LayoutComponent,
     HeaderComponent,
     SidenavListComponent,
+    AccordionComponent,
 
   ],
   imports: [
@@ -76,6 +78,7 @@ import {SharedModule} from "./modules/shared/shared.module";
     SharedModule,
     RoutingModule,
     RouterModule,
+
   ],
   providers: [
     {
