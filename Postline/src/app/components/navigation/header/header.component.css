@@ -1,6 +1,7 @@
 a {
   text-decoration: none;
-  color: white;
+  color: #039be5;
+  font-family: 'Lora', serif;
 }
 
 a:hover, a:active{
@@ -19,6 +20,13 @@ mat-toolbar{
 
 .onSelect{
  color:wheat;
+}
+
+.menu{
+  border-radius: 10px;
+
+  background: white;
+
 }
 
 @media(max-width: 959px){

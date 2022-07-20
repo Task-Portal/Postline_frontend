@@ -1,39 +1,53 @@
 
+<div class="filterSearchContainer">
 <div class="btnContainer">
-<app-accordion [title]="firstPanel" [isHidden]="true" [active]="categoryName!=undefined||fromDate !=undefined||toDate !=undefined">
-  <div class="filter">
+<app-accordion [title]="firstPanel" [isHidden]="true" [active]="postParams.categoryName!=''||postParams.postFrom !=''||postParams.postTo !=''">
+  <div class="btnCommand">
     <div>
       <mat-form-field>
-        <mat-select placeholder="Categories" [(ngModel)]="categoryName" >
+        <mat-select placeholder="Categories" [(ngModel)]="postParams.categoryName" >
           <mat-option *ngFor="let category of categories" [value]="category.categoryName">
             {{category.categoryName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-
     </div>
 
     <div class="datePickers">
 
       <div class="input-field col">
-      <input type="date" id="From" class="datepicker" [(ngModel)]="fromDate">
+      <input type="date" id="From" class="datepicker" [(ngModel)]="postParams.postFrom">
       <label for="From">From: </label>
       </div>
 
       <div class="input-field ">
-      <input type="date" id="To" class="datepicker" [(ngModel)]="toDate">
+      <input type="date" id="To" class="datepicker" [(ngModel)]="postParams.postTo">
       <label for="To">To: </label>
       </div>
     </div>
 
 
-    <button class="applyFilter" (click)="onClear()" >Clear filter</button>
+    <button class="applyFilter" (click)="onClear('filter')" >Clear filter</button>
     <button class="applyFilter" (click)="getAllPosts()">Apply filter</button>
   </div>
 </app-accordion>
+
+  <app-accordion [title]="secondPanel" [isHidden]="true" [active]="postParams.searchTerm!=''">
+  <div class="btnCommand">
+
+    <div class="search">
+    <input type="search"  #search placeholder="Search" [(ngModel)]="postParams.searchTerm">
+    </div>
+
+    <button class="applyFilter" (click)="onClear('search')" >Clear search</button>
+    <button class="applyFilter" (click)="getAllPosts()">Search</button>
+  </div>
+</app-accordion>
+
 </div>
 
+
+</div>
 
 
 
@@ -44,7 +58,7 @@
 
 
   <ul>
-    <li *ngFor="let post of this.posts">
+    <li *ngFor="let post of posts">
 
       <div class="card_holder">
         <div class="col s12 m6">
@@ -58,7 +72,7 @@
               <span>{{post.body}}</span>
             </div>
             <div class="card-action">
-              <a (click)="getPostDetails(post.id)">See details</a>
+              <a (click)="navigateToDetails(post.id)">See details</a>
               <div class="created">  {{post.postDate |date:"dd/MM/yy"}}</div>
             </div>
           </div>
@@ -75,12 +89,12 @@
 
   <div class="text_paginator">Items per page:</div>
 
-  <div><input #inputPages (keyup)="handleNumberOfPages(inputPages.value)" [value]="pageSize"
+  <div><input #inputPages (keyup)="handleNumberOfPages(inputPages.value)" [value]="paginator.pageSize"
               class="numberPerPage validate" type="number" min="1" max="200"></div>
-  <span class="paginator_data"> {{this.currentPage}} of {{this.totalPages}}</span>
-  <button class="btn_arrows" [disabled]="!hasPrevious" (click)="onClick('left')"><i
+  <span class="paginator_data"> {{paginator.currentPage}} of {{paginator.totalPages}}</span>
+  <button class="btn_arrows" [disabled]="!paginator.hasPrevious" (click)="onClick('left')"><i
     class="material-icons">chevron_left</i></button>
-  <button class="btn_arrows" [disabled]="!hasNext" (click)="onClick('right')"><i
+  <button class="btn_arrows" [disabled]="!paginator.hasNext" (click)="onClick('right')"><i
     class="material-icons">chevron_right</i></button>
 </div>
 

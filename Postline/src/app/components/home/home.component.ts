@@ -12,6 +12,8 @@ import {CategoryRepositoryService} from "../../services/repositories/category-re
 import {ICategory} from "../../interfaces/icategory";
 import {MiscellaneousService} from "../../services/miscellaneous.service";
 import Swal from 'sweetalert2';
+import {IPostParams} from "../../interfaces/post/postParams";
+import {IPaginatorParams} from "../../interfaces/paginatorParams";
 
 
 @Component({
@@ -23,12 +25,18 @@ export class HomeComponent implements OnInit {
   categories: ICategory[]
   posts: IPost[];
 
-  //#region Filter
-  categoryName: string|undefined
+  //#region Accordion Names
   firstPanel = "Filter"
-  fromDate: string |undefined
-  toDate: string|undefined
+  secondPanel = "Search"
+  //#endregion
 
+  //#region PostParams
+  postParams: IPostParams = {
+    categoryName: "",
+    postFrom: "",
+    postTo: "",
+    searchTerm: ""
+  }
   //#endregion
 
   //#region for alert
@@ -38,17 +46,18 @@ export class HomeComponent implements OnInit {
   };
   //endregion
 
-
   //#region My Paginator
-  pageSize: number = 5
-  hasNext: boolean
-  hasPrevious: boolean
-  currentPage: number = 1
-  totalPages: number
+  paginator: IPaginatorParams = {
+    pageSize: 5,
+    hasNext: false,
+    hasPrevious: false,
+    currentPage: 1,
+    totalPages: 0
+  }
 
   //#endregion
 
-
+  //#region Ctor
   constructor(
     private repository: PostsRepositoryService,
     private errorHandler: ErrorHandlerService,
@@ -58,20 +67,25 @@ export class HomeComponent implements OnInit {
     private mis: MiscellaneousService
   ) {
   }
+  //#endregion
 
-
+  //#region NgOnInit
   ngOnInit(): void {
     let size: number = Number(localStorage.getItem("NumberOfPages_home"))
-    if (size !== 0) this.pageSize = size
+    if (size !== 0) this.paginator.pageSize = size
     this.getAllPosts();
     this.getCategories()
 
   }
+  //#endregion
 
-  public getPostDetails = (id: string) => {
+  //#region Navigate to Details
+  public navigateToDetails = (id: string) => {
     this.router.navigate([postsRoutes.getOnePost(id)]);
   };
+  //#endregion
 
+  //#region Get Categories
   getCategories() {
 
     this.categoryRepo.getCategories(categoryRoutes.getAllCategories).subscribe(res => {
@@ -80,6 +94,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  //#endregion
+
+  //#region Get All Posts
   public getAllPosts = () => {
 
     const link = this.getHref()
@@ -89,12 +106,12 @@ export class HomeComponent implements OnInit {
     this.repository.getPosts(link).subscribe({
       next: (response: IPostWithPagination) => {
 
-        this.hasNext = response.data.hasNext
-        this.hasPrevious = response.data.hasPrevious
-        this.pageSize = response.data.pageSize
-        this.currentPage = response.data.currentPage
+        this.paginator.hasNext = response.data.hasNext
+        this.paginator.hasPrevious = response.data.hasPrevious
+        this.paginator.pageSize = response.data.pageSize
+        this.paginator.currentPage = response.data.currentPage
         this.posts = response.posts
-        this.totalPages = response.data.totalPages
+        this.paginator.totalPages = response.data.totalPages
 
       },
       error: (err: HttpErrorResponse) => {
@@ -104,19 +121,18 @@ export class HomeComponent implements OnInit {
     });
 
   };
+//#endregion
 
-
-//#region Paginator functions
+  //#region Paginator functions
   onClick(text: string) {
-    text === "right" ? this.currentPage += 1 : this.currentPage -= 1
-
+    text === "right" ? this.paginator.currentPage += 1 : this.paginator.currentPage -= 1
     this.getAllPosts()
   }
 
   handleNumberOfPages(text: any) {
 
     if (text.trim().length > 0) {
-      this.pageSize = Number(text);
+      this.paginator.pageSize = Number(text);
       this.getAllPosts()
       localStorage.setItem("NumberOfPages_home", text)
     }
@@ -124,43 +140,52 @@ export class HomeComponent implements OnInit {
 
 //#endregion
 
-  onClear() {
-    this.categoryName = undefined
-    this.toDate = undefined
-    this.fromDate = undefined
+  //#region OnClear
+  onClear(text: string) {
+    text == 'search' ? this.postParams.searchTerm = '' : (
+      this.postParams.categoryName = "",
+        this.postParams.postTo = "",
+        this.postParams.postFrom = "")
   }
 
+  //#endregion
+
+  //#region Get Href
   getHref(): (string) {
 
-    if (!this.toDate && this.fromDate) {
-      this.toDate = this.mis.addDays(new Date(), 1).toISOString().split('T')[0]
+    if (!this.postParams.postTo && this.postParams.postFrom) {
+      this.postParams.postTo = this.mis.addDays(new Date(), 1).toISOString().split('T')[0]
     }
 
 
-    if (this.fromDate && this.fromDate == this.toDate) {
-      this.toDate = this.mis.addDays(new Date(this.toDate), 1).toISOString().split('T')[0]
+    if (this.postParams.postFrom && this.postParams.postFrom == this.postParams.postTo) {
+      this.postParams.postTo = this.mis.addDays(new Date(this.postParams.postTo), 1).toISOString().split('T')[0]
     }
 
     return this.AreDatesWrong() ? "" :
-      postsRoutes.generateRoute(this.currentPage, this.pageSize, this.fromDate, this.toDate, this.categoryName)
+      postsRoutes.generateRoute(this.paginator.currentPage, this.paginator.pageSize, this.postParams)
 
 
   }
 
+  //#endregion
+
+  //#region Are Dates Wrong
   AreDatesWrong(): boolean {
-    if (this.fromDate&&this.toDate&& new Date(this.fromDate) > new Date(this.toDate)) {
+    if (this.postParams.postFrom && this.postParams.postTo && new Date(this.postParams.postFrom) > new Date(this.postParams.postTo)) {
 
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: `From date ${this.fromDate} can't be bigger than End date ${this.toDate} in the filter panel`,
+        text: `From date ${this.postParams.postFrom} can't be bigger than End date ${this.postParams.postTo} in the filter panel`,
 
       })
-      this.toDate = ""
+      this.postParams.postTo = ""
       return true
     }
     return false
   }
 
+//#endregion
 
 }
