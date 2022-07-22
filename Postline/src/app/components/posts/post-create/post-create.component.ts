@@ -48,9 +48,6 @@ export class PostCreateComponent implements OnInit {
   }
 
 
-  // public hasError = (controlName: string, errorName: string) =>{
-  //   return this.postForm.controls[controlName].hasError(errorName);
-  // }
   public onCancel = () => {
     this.location.back();
   }

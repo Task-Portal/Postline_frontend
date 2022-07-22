@@ -1,1 +1,57 @@
-<p>manager-home works!</p>
+﻿<h4>
+  Categories</h4>
+
+
+
+
+<div fxLayout fxLayoutAlign="end center">
+
+  <input  class="categoryName" type="text" [(ngModel)]="newCategoryName">
+  <button class="btn btn-small" (click)="createCategory()">
+    Create Category
+  </button>
+</div>
+
+<div fxLayout fxLayoutAlign="end center">
+
+  <input  class="categoryName" type="text" [(ngModel)]="categoryForUpdateDto.categoryName">
+  <button class="btn btn-small" (click)="updateCategory()">
+    Update Category
+  </button>
+</div>
+
+
+<table mat-table [dataSource]="dataSource" matSort matSortStart="desc">
+
+  <ng-container matColumnDef="categoryName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Update </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="redirectToUpdate(element)">
+        <mat-icon class="mat-18">system_update</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]" >
+</mat-paginator>
+

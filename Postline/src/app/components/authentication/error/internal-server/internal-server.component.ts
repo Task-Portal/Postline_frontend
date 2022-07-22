@@ -13,9 +13,11 @@ export class InternalServerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public checkChanged = (event: { checked: boolean; }) => {
-    this.reportedError = event.checked;
+  public checkChanged = () => {
+
+    this.reportedError =false
     this.reportedError ? this.startTimer() : this.stopTimer();
+
   }
   private startTimer = () => {
     this.timer = setInterval(() => {
