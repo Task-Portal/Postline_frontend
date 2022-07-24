@@ -5,12 +5,14 @@ import { AuthGuard } from '../../services/guards/auth.guard';
 import {PostDetailsComponent} from "../../components/posts/post-details/post-details.component";
 import {PostCreateComponent} from "../../components/posts/post-create/post-create.component";
 import {PostUpdateComponent} from "../../components/posts/post-update/post-update.component";
+import {UserSettingsComponent} from "../../components/user/user-settings/user-settings.component";
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'post/:id', component: PostDetailsComponent },
   { path: 'create', component: PostCreateComponent, canActivate:[AuthGuard] },
-  { path: 'update/:id', component: PostUpdateComponent, canActivate:[AuthGuard] }
+  { path: 'update/:id', component: PostUpdateComponent, canActivate:[AuthGuard] },
+  { path: 'settings', component: UserSettingsComponent, canActivate:[AuthGuard] }
 ];
 
 @NgModule({

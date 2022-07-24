@@ -1,0 +1,43 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+   <section>
+    <mat-card fxFlex="700px" fxFlex.xs="100%">
+      <mat-card-title>Update your settings</mat-card-title>
+      <form [formGroup]="userForm" (ngSubmit)="updateUser(userForm.value)" fxLayout="column wrap"
+            fxLayoutAlign="center center" fxLayoutGap="10px">
+
+        <div class="input-field s12" style="width: 100%">
+          <span class="headers_forUpdateForm">First Name</span>
+          <input type="text" formControlName="firstName" id="firstName" >
+        </div>
+
+        <div class="input-field s12" style="width: 100%">
+          <span class="headers_forUpdateForm">Last Name</span>
+          <input type="text" formControlName="lastName" id="lastName">
+        </div>
+
+
+<!--        <div class="input-field s12" style="width: 100%">-->
+<!--          <span class="headers_forUpdateForm">Email</span>-->
+<!--          <input type="text" formControlName="email" id="email">-->
+<!--        </div>-->
+
+
+        <mat-form-field>
+          <mat-select placeholder="isTwoFactorAuthorizationEnabled" [(ngModel)]="selectedValue"
+                      formControlName="isTwoFactorAuthorizationEnabled" >
+            <mat-option *ngFor="let ver of verification" [value]="ver">
+              {{ver}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="primary" [disabled]="userForm.invalid">Update</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </section>
+
+
+</div>

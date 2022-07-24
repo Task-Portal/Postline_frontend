@@ -47,10 +47,6 @@ export class PostUpdateComponent implements OnInit {
       body: new FormControl('', [Validators.required]),
       category: new FormControl("",[Validators.required])
     });
-
-
-
-
   }
 
   getCategories(){
@@ -70,7 +66,6 @@ export class PostUpdateComponent implements OnInit {
 
   private executePostUpdate = (postFormValue:any) => {
 
-    console.log("POstid: ", this.postId)
 
     let postForUpdateDto: IPostForUpdateDto = {
       postId:this.postId,

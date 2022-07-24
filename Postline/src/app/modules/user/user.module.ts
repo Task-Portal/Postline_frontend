@@ -8,10 +8,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {PostCreateComponent} from "../../components/posts/post-create/post-create.component";
 import {PostUpdateComponent} from "../../components/posts/post-update/post-update.component";
+import { UserSettingsComponent } from '../../components/user/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [ProfileComponent, PostCreateComponent,
-    PostUpdateComponent,],
+    PostUpdateComponent,
+    UserSettingsComponent,],
   imports: [CommonModule, UserRoutingModule, SharedModule, ReactiveFormsModule],
 })
 export class UserModule {

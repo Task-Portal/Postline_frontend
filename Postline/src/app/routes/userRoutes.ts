@@ -8,4 +8,6 @@ export const userRoutes = {
   emailConfirmation: 'auth/emailconfirmation',
   twoStepVerification: 'auth/twostepverification',
   externalLogin: 'auth/externallogin',
+  getUserInfo:'me',
+  userUpdateInfo:'me'
 };
