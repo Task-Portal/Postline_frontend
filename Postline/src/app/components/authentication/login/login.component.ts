@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
     this.authService.signInWithGoogle();
     this.authService.extAuthChanged.subscribe(
       (user) => {
+
         if (user != null) {
           const externalAuth: ExternalAuthDto = {
             provider: user?.provider,
@@ -110,6 +111,7 @@ export class LoginComponent implements OnInit {
             },
           });
         } else {
+          console.log("Token: ", res.token)
           localStorage.setItem('token', res.token);
           this.authService.sendAuthStateChangeNotification(
             res.isAuthSuccessful

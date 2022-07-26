@@ -8,7 +8,15 @@
   <div class="col s12 m6">
     <div class="card">
       <div class="author" >Author:  {{post.firstName}} {{post.lastName}}
-        <div class="rating" >Rating:  {{post.rating}}</div>
+        <div class="rating" >
+          <button (click)="handleRating(true)" class="btn btn-flat btn-small">
+            <i class="material-icons">arrow_circle_up</i>
+          </button>
+           {{post.rating}}
+          <button (click)="handleRating(false)" class="btn btn-flat btn-small">
+            <i class="material-icons">arrow_circle_down</i>
+          </button>
+        </div>
       </div>
 
 

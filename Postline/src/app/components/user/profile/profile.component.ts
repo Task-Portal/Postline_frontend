@@ -59,12 +59,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.getAllPosts()
+     this.getAllPosts()
   }
 
 
   public getAllPosts = () => {
-
+    console.log("Getting User Posts Profile.component")
     this.repoService.getUserPosts(postsRoutes.getUserPosts).subscribe(res => {
       this.dataSource.data = res as IPost[];
     })

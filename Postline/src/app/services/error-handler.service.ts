@@ -18,6 +18,7 @@ export class ErrorHandlerService implements HttpInterceptor {
 
   //#region HandleError
   public handleError = (error: HttpErrorResponse) => {
+    console.log("Getting Error: ", error)
     if (error.status === 500) {
       this.handle500Error(error);
     } else if (error.status === 404) {

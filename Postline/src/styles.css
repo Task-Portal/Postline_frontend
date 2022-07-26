@@ -31,9 +31,17 @@ body{
 }
 
 .rating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   float: right;
   padding: 5px;
-  color:brown;
+  color:black;
+}
+
+.rating .material-icons{
+  font-size: 30px;
 }
 
 .card{

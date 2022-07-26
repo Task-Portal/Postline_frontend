@@ -33,6 +33,7 @@ import {IPostWithPagination} from "../../interfaces/post/ipostWithPagination";
   public getUserPosts(route: string) {
     return this.http.get<IPost[]>(
       this.createCompleteRoute(route, this.envUrl.urlAddress)
+
     );
   }
 

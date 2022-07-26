@@ -7,6 +7,11 @@ import { IPost } from '../../../interfaces/post/ipost';
 import { postsRoutes } from '../../../routes/postsRoutes';
 import { AlertService } from '../../../services/alert.service';
 import {Location} from '@angular/common';
+import {IPointForCreationDto} from "../../../interfaces/Point/pointForCreationDto";
+import {PointRepositoryService} from "../../../services/repositories/point-repository.service";
+import {pointRoutes} from "../../../routes/pointRoutes";
+import Swal from "sweetalert2";
+import { ICreatePointResponseDto} from "../../../interfaces/Point/createPointResponseDto";
 
 @Component({
   selector: 'app-post-details',
@@ -22,7 +27,8 @@ export class PostDetailsComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private errorHandler: ErrorHandlerService,
     private alert: AlertService,
-    private location: Location
+    private location: Location,
+    private pointRepo:PointRepositoryService
   ) {}
 
   ngOnInit(): void {
@@ -45,5 +51,29 @@ export class PostDetailsComponent implements OnInit {
 
   backClicked() {
     this.location.back();
+  }
+
+  handleRating(isUp:boolean){
+
+    let point:IPointForCreationDto = {
+      isIncrement:isUp,
+      postId: this.post.id
+    }
+
+    this.pointRepo.create(pointRoutes.createPoint,point).subscribe({
+      next: (res:ICreatePointResponseDto) => {
+        console.log("Response: ",res)
+        if (res.message) Swal.fire(res.message)
+        this.post.rating=res.count
+      },
+      error: (err: HttpErrorResponse) => {
+        this.errorHandler.handleError(err);
+        this.alert.error(this.errorHandler.errorMessage, {
+          autoClose: true,
+          keepAfterRouteChange: true,
+        });
+      },
+    });
+
   }
 }
